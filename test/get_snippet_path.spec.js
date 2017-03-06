@@ -6,15 +6,15 @@ const _ = require('lodash');
 
 describe('find the filename in the current folder', function() {
   it ('should find an existing file in the given path', function() {
-    path = getSnippetPath('newcomponent');
+    path = getSnippetPath('snippets', 'newcomponent');
     expect(path).to.equal('snippets/ecmascript');
   });
   it ('should find an existing file when given a partial path', function() {
-    getSnippetPath('ecmascript/newcomponent');
+    getSnippetPath('snippets', 'ecmascript/newcomponent');
     expect(path).to.equal('snippets/ecmascript')
   });
   it ('should find an existing file when an extension is present', function() {
-    getSnippetPath('newcomponent.js');
+    getSnippetPath('snippets', 'newcomponent.js');
     expect(path).to.equal('snippets/ecmascript')
   });
 });

@@ -1,14 +1,26 @@
 {
   "name": "turingsnip",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A Turing Complete snippets tool for the Command Line",
   "main": "turingsnip.js",
   "scripts": {
-    "test": "mocha",
-    "turingsnip": "node turingsnip"
+    "test": "mocha --reporter nyan --recursive",
+    "prepublish-to-npm": "supersoaker squirt -r https://registry.npmjs.org",
+    "publish-to-npm": "publish"
   },
-  "author": "",
-  "license": "ISC",
+  "bin": {
+    "turingsnip": "./turingsnip.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/findmypast/turingsnip.git"
+  },
+  "author": "Findmypast",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/findmypast/turingsnip/issues"
+  },
+  "homepage": "https://github.com/findmypast/turingsnip#readme",
   "dependencies": {
     "clipboardy": "^0.1.2",
     "commander": "^2.9.0",
@@ -19,9 +31,7 @@
     "node": ">=0.10"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
-  },
-  "bin": {
-    "turingsnip": "turingsnip.js"
+    "chai": "^3.5.0",
+    "supersoaker": "^1.0.1"
   }
 }
