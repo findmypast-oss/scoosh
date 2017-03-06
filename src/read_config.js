@@ -7,7 +7,7 @@ function readConfig() {
   var metadataString;
   if (!fs.existsSync(configFilePath))
   {
-    metadataString = writeConfig({snippetRepos: []});
+    metadataString = writeConfig({snippetFolders: []});
   } else
   {
     metadataString = fs.readFileSync(configFilePath).toString();

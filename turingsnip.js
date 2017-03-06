@@ -15,14 +15,14 @@ const {readConfig,writeConfig} = require('./src/read_config');
 
 const configNotPopulatedMessage =
 `
-In order to use turingsnip you'll need to register some tasty snippet repos
-Edit the configuration file in ~/.turingsnip and add the paths to your repo
+In order to use turingsnip you'll need to register some tasty snippet folders
+Edit the configuration file in ~/.turingsnip and add the paths
 For Example :
 {
-  "snippetRepos": ["~/snippetRepo", "~/anotherSnippetRepo"]
+  "snippetFolders": ["~/snippetFolder", "~/anotherSnippetFolder"]
 }
 `;
-const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet repositories.';
+const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.';
 const snipAvailableMessage = 'Clipboard contains complete snippet.'
 const pathAlreadyExistsInConfig = 'Path already exists in config file.'
 
@@ -34,9 +34,9 @@ program.command('clip <snippetName>')
   .description('Put the requested snippet on the clipboard')
   .action(pushSnippetToClipboard);
 
-program.command('addrepo <repoPath>')
-  .description('Adds the path to the list of available snippet repositories')
-  .action(addRepoToConfig);
+program.command('addfolder <folderPath>')
+  .description('Adds the path to the list of available snippet folders')
+  .action(addFolderToConfig);
 
 
 program.parse(process.argv);
@@ -46,14 +46,14 @@ if (!process.argv.slice(2).length) {
   return;
 }
 
-function addRepoToConfig(rawPath) {
+function addFolderToConfig(rawPath) {
   const path = '/' + pathLibrary.relative('/', rawPath);
   const config = readConfig();
-  const repoMatch = _.find(config.snippetRepos,
+  const repoMatch = _.find(config.snippetFolders,
     repo => repo === path);
   if (!repoMatch)
   {
-    config.snippetRepos.push(path);
+    config.snippetFolders.push(path);
     const jsonConfig = writeConfig(config);
     console.log("Config Updated\n" + jsonConfig);
   } else {
@@ -62,7 +62,7 @@ function addRepoToConfig(rawPath) {
 }
 
 function pushSnippetToClipboard(snippetName) {
-  const snippetsRepos = readConfig().snippetRepos
+  const snippetsRepos = readConfig().snippetFolders
     .map(repo => expandTilde(repo));
 
   if ( _.isEmpty(snippetsRepos) ) {
