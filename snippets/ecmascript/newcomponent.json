@@ -1,0 +1,25 @@
+{
+  "templateFile": "newcomponent.js",
+  "questions": [
+    {
+      "name": "ComponentName",
+      "type": "input",
+      "default": "<SPECIFYNAMEHERE>",
+      "message": "the component name of the blahdeblah"
+    },
+    {
+      "name": "InterestingList",
+      "type": "list",
+      "choices": [
+        "can't code", "social foibles", "doesn't like pizza"
+      ],
+      "message": "the disability of the blahdeblah"
+    },
+    {
+      "name": "SomeBoolean",
+      "type": "list",
+      "choices" : ["true","false"],
+      "message": "Select a boolean...because"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "turingsnip",
+  "version": "1.0.0",
+  "description": "A Turing Complete snippets tool for the Command Line",
+  "main": "turingsnip.js",
+  "scripts": {
+    "test": "mocha",
+    "turingsnip": "node turingsnip"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  },
+  "bin": {
+    "turingsnip": "turingsnip.js"
+  }
+}

@@ -1,0 +1,1 @@
+Before <%- VariableHere %> After

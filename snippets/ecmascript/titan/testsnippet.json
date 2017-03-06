@@ -1,0 +1,11 @@
+{
+  "templateFile": "testsnippet.js",
+  "questions": [
+    {
+      "name": "VariableHere",
+      "type": "input",
+      "default": "<SPECIFYNAMEHERE>",
+      "message": "a variable to insert."
+    }
+  ]
+}
