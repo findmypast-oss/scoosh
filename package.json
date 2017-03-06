@@ -1,6 +1,6 @@
 {
   "name": "turingsnip",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Turing Complete snippets tool for the Command Line",
   "main": "turingsnip.js",
   "scripts": {
