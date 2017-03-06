@@ -1,14 +1,13 @@
 const _ = require('lodash');
 const fs = require('fs');
 
-function readConfig() {
-  const configFilePath = `${process.env['HOME']}/.turingsnip`;
+const configFilePath = `${process.env['HOME']}/.turingsnip`;
 
+function readConfig() {
   var metadataString;
   if (!fs.existsSync(configFilePath))
   {
-    metadataString = JSON.stringify({snippetRepos: []}, undefined, 2);
-    fs.writeFileSync(configFilePath, metadataString+"\n");
+    metadataString = writeConfig({snippetRepos: []});
   } else
   {
     metadataString = fs.readFileSync(configFilePath).toString();
@@ -18,4 +17,11 @@ function readConfig() {
   return metadata;
 }
 
-module.exports = readConfig;
+function writeConfig(config) {
+  const metadataString = JSON.stringify(config, undefined, 2);
+  fs.writeFileSync(configFilePath, metadataString+"\n");
+  return metadataString;
+}
+
+
+module.exports = {readConfig,writeConfig};
