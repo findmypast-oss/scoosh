@@ -20,19 +20,23 @@ For Example :
   "snippetRepos": ["~/snippetRepo", "~/anotherSnippetRepo"]
 }
 `;
+const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet repositories.';
+const snipAvailableMessage = 'Clipboard contains complete snippet.'
 
 program
   .version('1.0.0')
-  .command('clip <req>', 'Put the requested snippet on the clipboard')
+  .command('clip <snippetName>')
+  .description('Put the requested snippet on the clipboard')
   .action(pushSnippetToClipboard);
 
 program.parse(process.argv);
-console.log("after parse");
+
 if (!process.argv.slice(2).length) {
-  program.outputHelp(colors.red);
+  program.outputHelp();
+  return;
 }
 
-function pushSnippetToClipboard(req,optional) {
+function pushSnippetToClipboard(snippetName) {
   const snippetsRepos = readConfig().snippetRepos
     .map(repo => expandTilde(repo));
 
@@ -41,20 +45,21 @@ function pushSnippetToClipboard(req,optional) {
     return;
   }
   let repoPath = _.find(snippetsRepos, (repo) => {
-    return getSnippetPath(repo, req);
+    return getSnippetPath(repo, snippetName);
   });
-  repoPath = getSnippetPath(repoPath, req);
+  repoPath = getSnippetPath(repoPath, snippetName);
 
-  console.log("back in the main loop : " + repoPath);
   if (repoPath)
   {
-    console.log("createVariableBlock");
     createVariableBlock(
-      `${repoPath}/${req}.json`,
+      `${repoPath}/${snippetName}.json`,
       (answers, templateName) => {
         const snippet = createSnippet(`${repoPath}/${templateName}`,answers);
         clipboardy.writeSync(snippet);
+        console.log(snipAvailableMessage);
       });
+  } else {
+    console.log(couldNotFindSnippetMessage);
   }
-  return true;
+
 }

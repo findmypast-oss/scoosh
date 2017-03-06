@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.9.0"
+    "clipboardy": "^0.1.2",
+    "commander": "^2.9.0",
+    "expand-tilde": "^2.0.2",
+    "inquirer": "^3.0.6"
   },
   "engines": {
     "node": ">=0.10"

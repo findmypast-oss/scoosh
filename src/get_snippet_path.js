@@ -21,7 +21,6 @@ function getSnippetPath(startingPath, snippetName) {
       returnDir = basedir;
     }
   });
-  console.log(returnDir);
   return returnDir;
 }
 
