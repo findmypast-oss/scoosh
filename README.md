@@ -1,5 +1,10 @@
 # turingsnip
 
+## Setup
+
+
+
+
 ## Usage
 
-turingsnip clip <snippetname> 
+turingsnip clip snippetname
