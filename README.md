@@ -1,33 +1,55 @@
 # turingsnip
 
-A tool for putting code snippets on your clipboard.
+A linux tool for putting code snippets on your clipboard.
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-## Requirements
+- [turingsnip](#turingsnip)
+	- [Setup](#setup)
+	- [Usage](#usage)
+	- [Creating snippet templates.](#creating-snippet-templates)
+		- [The EJS Template File](#the-ejs-template-file)
+		- [The Snippet JSON Configuration File](#the-snippet-json-configuration-file)
+			- [Properties](#properties)
 
-Unix (preferably Ubuntu).
+<!-- /TOC -->
 
 ## Setup
-
-#### Ubuntu
 
 ```sh
 sudo apt install xsel
 npm install turingsnip -g
 ```
 
-## Creating a snippet.
+## Usage
 
-Each snippet has an EJS template file, and a JSON configuration file.
+1. Clone an existing snippets folder.
+  ```sh
+  git clone git@github.com:findmypast/turingsnip-react-snippets.git
+  ```
 
-#### The EJS Template File
+* If the folder is in our home folder called snippets then run this command.
+
+  ```sh
+  turingsnip addfolder ~/snippets
+  ```
+
+* Put a snippet into the clipboard with
+
+  ```sh
+  turingsnip clip newcomponent
+  ```
+
+## Creating snippet templates.
+
+Each snippet has a template file in [EJS syntax](https://github.com/mde/ejs/blob/master/docs/syntax.md), and a JSON configuration file.
+
+### The EJS Template File
 
 The extension should indicate the language for the snippet and not '.ejs'.
 
-[EJS syntax](https://github.com/mde/ejs/blob/master/docs/syntax.md)
 
-For example
 
-`newcomponent.js`
+For example : `newcomponent.js`
 ```js
 import React, { Component } from 'react';
 import Relay from 'react-relay';
@@ -44,6 +66,8 @@ class <%- ComponentName %> extends Component {
   }
 }
 ```
+import React, { Component } from 'react';
+import Relay from 'react-relay';
 
 In this example there are three template substitutions
 ```js
@@ -52,12 +76,12 @@ In this example there are three template substitutions
 <%- SomeBoolean %>
 ```
 
-#### The Snippet JSON Configuration File
-Thgis file specifies how the template substitutions are fetched from the user. It should have a `.json` extension.
+### The Snippet JSON Configuration File
+This file specifies how the template substitutions are fetched from user input. It should have a `.json` extension.
 
-##### Properties
+#### Properties
 - **templateFile** - This should be the filename of the template above.
-- **question** - This is the json used by the inquirer library for fetching interactive input from users.
+- **question** - This is the json used by the [inquirer library](https://github.com/SBoudrias/Inquirer.js) for fetching interactive input from users.
 [Guide for inquirer question syntax](https://github.com/SBoudrias/Inquirer.js#questions)
 
 `newcomponent.json`
@@ -87,19 +111,4 @@ Thgis file specifies how the template substitutions are fetched from the user. I
     }
   ]
 }
-```
-
-## Registering a folder of snippets
-Once we have a snippets folder we need to register it with turingsnip. If the folder is in our home folder called snippets then run this command.
-
-```sh
-turingsnip addfolder ~/snippets
-```
-
-## Usage
-
-Put a snippet into the clipboard with
-
-```sh
-turingsnip clip newcomponent
 ```
