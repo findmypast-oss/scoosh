@@ -7,7 +7,7 @@ const _ = require('lodash');
 describe('createSnippet', function() {
   it ('returns a completed template', function() {
     const result = createSnippet(
-      'snippets/ecmascript/titan/testsnippet.js',
+      'testdata/snippets/ecmascript/titan/testsnippet.js',
       { VariableHere: 'String' });
 
     const expected = "Before String After";

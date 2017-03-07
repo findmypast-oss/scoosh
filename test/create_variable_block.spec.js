@@ -5,6 +5,6 @@ const createVariableBlock = require('../src/create_variable_block');
 
 describe('createVariableBlock', function() {
   it ('returns a completed variable block', function() {
-    const result = createVariableBlock('snippets/ecmascript/newcomponent.json');
+    const result = createVariableBlock('testdata/snippets/ecmascript/newcomponent.json');
   });
 });

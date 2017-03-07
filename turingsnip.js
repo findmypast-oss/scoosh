@@ -69,9 +69,9 @@ function pushSnippetToClipboard(snippetName) {
     console.log(configNotPopulatedMessage);
     return;
   }
-  let repoPath = _.find(snippetsRepos, (repo) => {
-    return getSnippetPath(repo, snippetName);
-  });
+  let repoPath = _.find(snippetsRepos,
+    repo => getSnippetPath(repo, snippetName) );
+
   repoPath = getSnippetPath(repoPath, snippetName);
 
   if (repoPath)
