@@ -1,5 +1,7 @@
 {
-  "templateFile": "onlyinsecondsnippetsfolder.js",
+  "templateFiles": {
+    "template": "onlyinsecondsnippetsfolder.js"
+  },
   "questions": [
     {
       "name": "ComponentName",

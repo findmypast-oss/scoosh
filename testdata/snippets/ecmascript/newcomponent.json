@@ -1,5 +1,7 @@
 {
-  "templateFile": "newcomponent.js",
+  "templateFiles": {
+    "template": "newcomponent.js"
+  },
   "questions": [
     {
       "name": "ComponentName",

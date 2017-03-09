@@ -1,5 +1,7 @@
 {
-  "templateFile": "testsnippet.js",
+  "templateFiles": {
+    "template": "testsnippet.js"
+  },
   "questions": [
     {
       "name": "VariableHere",
