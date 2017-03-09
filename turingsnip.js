@@ -51,27 +51,25 @@ program.command('debug <snippetName>')
     pushSnippetToFunction(config, name, console.log);
   });
 
+function createFilesForSnippet(snippetName) {
+  pushSnippetToFunction(config, snippetName,
+    (snippet,filename = undefined) => {
+      if (filename) {
+        fs.writeFileSync(filename, snippet+"\n");
+        console.log("Created snippet file");
+      }
+  });
+}
+
 program.command('create [snippetName]')
   .description('Create files for snippet.')
   .action((snippetName = undefined) => {
     if (!snippetName) {
       interactive_choose_snippet( (snippetName) => {
-        pushSnippetToFunction(config, snippetName,
-          (snippet,filename = undefined) => {
-            if (filename) {
-              fs.writeFileSync(filename, snippet+"\n");
-              console.log("Created snippet file");
-            }
-        })
+        createFilesForSnippet(snippetName);
       });
     } else {
-      pushSnippetToFunction(config, snippetName,
-        (snippet,filename = undefined) => {
-          if (filename) {
-            fs.writeFileSync(filename, snippet+"\n");
-            console.log("Created snippet file");
-          }
-      })
+      createFilesForSnippet(snippetName);
     }
   });
 
