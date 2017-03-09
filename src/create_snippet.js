@@ -5,7 +5,13 @@ const ejs = require('ejs');
 function createSnippet(snippetPath, snippetVariables) {
   const content = fs.readFileSync(snippetPath).toString().trim();
 
-  return ejs.render(content, snippetVariables);
+  return renderTemplateString(content, snippetVariables);
 }
 
-module.exports = createSnippet;
+function renderTemplateString(content, variables)
+{
+  variables._ = _; // inject lodash.js
+  return ejs.render(content, variables);
+}
+
+module.exports = {createSnippet, renderTemplateString};

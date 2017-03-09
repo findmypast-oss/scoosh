@@ -2,10 +2,14 @@ const _ = require('lodash');
 const fs = require('fs');
 var inquirer = require('inquirer');
 
-function createVariableBlock(variableMetadataPath, done) {
-  const metadataString = fs.readFileSync(variableMetadataPath).toString();
+function readSnippetConfiguration(snippetConfigurationPath) {
+  const metadataString = fs.readFileSync(snippetConfigurationPath).toString();
   const metadata = JSON.parse(metadataString);
+  return metadata;
+}
 
+
+function createVariableBlock(metadata, done) {
   const questions = metadata.questions;
 
   inquirer.prompt(questions).then(function (answers) {
@@ -13,4 +17,4 @@ function createVariableBlock(variableMetadataPath, done) {
   });
 }
 
-module.exports = createVariableBlock;
+module.exports = {createVariableBlock,readSnippetConfiguration};
