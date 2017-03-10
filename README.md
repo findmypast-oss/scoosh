@@ -17,7 +17,7 @@ A linux tool for putting code snippets on your clipboard.
 
 ```sh
 sudo apt install xsel
-npm install turingsnip -g
+sudo npm install turingsnip -g
 ```
 
 ## Usage
