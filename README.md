@@ -24,13 +24,18 @@ npm install turingsnip -g
 
 1. Clone an existing snippets folder.
   ```sh
-  git clone git@github.com:findmypast/turingsnip-react-snippets.git
+  git clone git@github.com:findmypast/turingsnip-titan-snippets.git
   ```
 
 * If the folder is in our home folder called snippets then run this command.
 
   ```sh
   turingsnip addfolder ~/snippets
+  ```
+
+* Create a multi-file snippet with create, make sure you are in the folder where the files should be created.
+  ```sh
+  turingsnip create component
   ```
 
 * Put a snippet into the clipboard with
@@ -87,7 +92,9 @@ This file specifies how the template substitutions are fetched from user input. 
 `newcomponent.json`
 ```json
 {
-  "templateFile": "newcomponent.js",
+  "templateFiles": {
+    "template": "newcomponent.js",
+  },
   "questions": [
     {
       "name": "ComponentName",
