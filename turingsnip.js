@@ -90,7 +90,7 @@ if (!process.argv.slice(2).length) {
 }
 
 function addFolderToConfig(rawPath) {
-  const path = '/' + pathLibrary.relative('/', rawPath);
+  const path = pathLibrary.resolve(rawPath);
   const config = readConfig();
   const repoMatch = _.find(config.snippetFolders,
     repo => repo === path);
