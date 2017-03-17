@@ -1,7 +1,7 @@
 var assert = require('assert');
 var chai = require('chai');
 var expect = chai.expect;
-const getSnippetPath = require('../src/get_snippet_path');
+const {getSnippetPath} = require('../src/get_snippet_path');
 const _ = require('lodash');
 
 describe('find the filename in the current folder', function() {
