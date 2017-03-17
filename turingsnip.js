@@ -98,7 +98,7 @@ function addFolderToConfig(rawPath) {
   {
     config.snippetFolders.push(path);
     const jsonConfig = writeConfig(config);
-    console.log("Config Updated\n" + jsonConfig);
+    console.log("Config Updated in ~/.turingsnip\n" + jsonConfig);
   } else {
     console.log(pathAlreadyExistsInConfig);
   }
