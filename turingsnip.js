@@ -130,8 +130,6 @@ function listSnippets() {
   const allSnippets = getAllSnippets();
 
   console.log(JSON.stringify(allSnippets,undefined,2));
-
-
 }
 function interactive_choose_snippet(apply) {
   const allSnippets = getAllSnippets();
