@@ -1,0 +1,13 @@
+{
+  "templateFiles": {
+    "template": "onlyinsecondsnippetsfolder.js"
+  },
+  "questions": [
+    {
+      "name": "ComponentName",
+      "type": "input",
+      "default": "<SPECIFYNAMEHERE>",
+      "message": "the component name of the blahdeblah"
+    }
+  ]
+}

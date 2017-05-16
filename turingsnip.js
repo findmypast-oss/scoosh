@@ -12,7 +12,7 @@ const fs = require('fs');
 const {createVariableBlock,readSnippetConfiguration} = require('./src/create_variable_block');
 const {createSnippet, renderTemplateString} = require('./src/create_snippet');
 const {getSnippetPath,getSnippetNamesFromAllSnippetFolders} = require('./src/get_snippet_path');
-const {readConfig,writeConfig} = require('./src/read_config');
+const {readConfig,writeConfig,addFolderToConfig,getSnippetsReposFromConfig} = require('./src/config');
 
 
 const configNotPopulatedMessage =
@@ -89,30 +89,7 @@ if (!process.argv.slice(2).length) {
   return;
 }
 
-function addFolderToConfig(rawPath) {
-  const path = pathLibrary.resolve(rawPath);
-  const config = readConfig();
-  const repoMatch = _.find(config.snippetFolders,
-    repo => repo === path);
-  if (!repoMatch)
-  {
-    config.snippetFolders.push(path);
-    const jsonConfig = writeConfig(config);
-    console.log("Config Updated in ~/.turingsnip\n" + jsonConfig);
-  } else {
-    console.log(pathAlreadyExistsInConfig);
-  }
-}
 
-function getSnippetsReposFromConfig(config) {
-  const snippetsRepos = config.snippetFolders
-    .map(repo => expandTilde(repo));
-
-  if ( _.isEmpty(snippetsRepos) ) {
-    return undefined;
-  }
-  return snippetsRepos;
-}
 function getAllSnippets() {
   const snippetsRepos = getSnippetsReposFromConfig(config);
   if (!snippetsRepos) {
@@ -131,6 +108,7 @@ function listSnippets() {
 
   console.log(JSON.stringify(allSnippets,undefined,2));
 }
+
 function interactive_choose_snippet(apply) {
   const allSnippets = getAllSnippets();
 
@@ -154,7 +132,7 @@ function searchForSnippetInRepos(snippetsRepos, snippetName) {
   return repoPath;
 }
 
-function pushSnippetToFunction(config, snippetName, apply) {
+function pushSnippetToFunction(config, snippetName, apply, commandLineParameters) {
 
   const snippetsRepo = getSnippetsReposFromConfig(config);
   if (!snippetsRepo) {
@@ -167,6 +145,7 @@ function pushSnippetToFunction(config, snippetName, apply) {
     const snippetConfiguration = readSnippetConfiguration(`${repoPath}/${snippetName}.json`)
 
     createVariableBlock(
+      commandLineParameters,
       snippetConfiguration,
       (answers, templateName) => {
 
@@ -186,5 +165,4 @@ function pushSnippetToFunction(config, snippetName, apply) {
   } else {
     console.log(couldNotFindSnippetMessage);
   }
-
 }

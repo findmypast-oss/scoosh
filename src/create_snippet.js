@@ -11,6 +11,7 @@ function createSnippet(snippetPath, snippetVariables) {
 function renderTemplateString(content, variables)
 {
   variables._ = _; // inject lodash.js
+  variables.fs = fs;
   return ejs.render(content, variables);
 }
 

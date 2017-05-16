@@ -9,11 +9,14 @@ function readSnippetConfiguration(snippetConfigurationPath) {
 }
 
 
-function createVariableBlock(metadata, done) {
+function createVariableBlock(commandLineParameters, metadata, done) {
   const questions = metadata.questions;
 
+  const filteredQuestions = questions.filter((question) => commandLineParameters[question.name] === undefined)
+
   inquirer.prompt(questions).then(function (answers) {
-    done(answers, metadata.templateFile);
+    var combinedAnswers = new Map([answers, commandLineParameters]);
+    done(combinedAnswers, metadata.templateFile);
   });
 }
 
