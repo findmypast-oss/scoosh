@@ -1,13 +1,51 @@
 {
-  "templateFiles": {
-    "template": "onlyinsecondsnippetsfolder.js"
-  },
+  "operations": [
+    {
+      "operation": "create",
+      "template": "graphql-content-resolver.ex",
+      "filename": "<%- _.snakeCase(Name) %>.ex"
+    },
+    {
+      "operation": "insert",
+      "marker": "~~~ MARKER HERE~~~",
+      "markerLineOffset": -1,
+      "template": "graphql-content-resolver.ex",
+      "filename": "<%- GitProjectRoot %>/"
+    },
+    {
+      "operation": "clipboard",
+      "template": "graphql-content-resolver.ex"
+    },
+    {
+      "operation": "makefolder",
+      "path": "<%- GitProjectRoot %>/api/lib"
+    }
+  ],
   "questions": [
     {
-      "name": "ComponentName",
+      "name": "GraphQLContentFile",
+      "type": "markerfiles",
+      "path": "<%- GitProjectRoot %>/api/lib/graphql/content",
+      "marker": "~~~ MARKER HERE ~~~",
+      "message": "Message for file select here"
+    },
+    {
+      "name": "Name",
       "type": "input",
       "default": "<SPECIFYNAMEHERE>",
-      "message": "the component name of the blahdeblah"
+      "message": "What is the Name of the GraphQL Type/Elixir Module (in CamelCaps) ?"
+    },
+    {
+      "name": "NameSpace",
+      "type": "input",
+      "default": "",
+      "message": "What is the namespace of the GraphQL Type?\nExample : TitanApi.GraphQL.Content.[NameSpace].Name"
+    },
+    {
+      "name": "ExampleResolvers",
+      "type": "checkbox",
+      "choices": ["Empty Resolver", "Link Resolver"],
+      "message": "Choose the default implementations you would like in your template."
     }
   ]
 }
