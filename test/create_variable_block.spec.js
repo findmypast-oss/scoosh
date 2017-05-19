@@ -10,4 +10,15 @@ describe('createVariableBlock', function() {
       readSnippetConfiguration('testdata/snippets/ecmascript/newcomponent.json'),
       (answers, templateFile) => { expect(answers).to.exist() });
   });
+  describe('filterParametersPassedFromCommandLine removes already set variables from the inquirer questions', function() {
+    it('removes a given command line parameter', function() {
+      const questions = [{
+        name: "ComponentName",
+        type: "input",
+        default: "<SPECIFYNAMEHERE>",
+        message: "the component name of the blahdeblah"
+      }];
+      filterParametersPassedFromCommandLine({test: "test"}, questions).deepEqual([]);
+    });
+  });
 });
