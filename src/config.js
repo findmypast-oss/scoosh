@@ -1,5 +1,7 @@
 const _ = require('lodash');
 const fs = require('fs');
+const pathLibrary = require('path');
+const expandTilde = require('expand-tilde');
 
 const configFilePath = `${process.env.HOME}/.turingsnip`;
 function readConfig() {

@@ -34,10 +34,10 @@ program
   .action((name = undefined) => {
     if (!name) {
       interactive_choose_snippet(snippetName => {
-        pushSnippetToFunction(config, snippetName, clipboardy.writeSync);
+        pushSnippetToFunction({}, config, snippetName, clipboardy.writeSync);
       });
     } else {
-      pushSnippetToFunction(config, name, clipboardy.writeSync);
+      pushSnippetToFunction({}, config, name, clipboardy.writeSync);
     }
   });
 
@@ -45,21 +45,26 @@ program
   .command('debug <snippetName>')
   .description('Put the requested snippet on the console')
   .action(name => {
-    pushSnippetToFunction(config, name, console.log);
+    pushSnippetToFunction({}, config, name, console.log);
   });
 
-function createFilesForSnippet(snippetName) {
-  pushSnippetToFunction(config, snippetName, (snippet, filename = undefined) => {
-    if (filename) {
-      fs.writeFileSync(filename, `${snippet}\n`);
-      console.log('Created snippet file');
+function createFilesForSnippet(snippetName, commandLineParameters) {
+  pushSnippetToFunction(
+    commandLineParameters,
+    config,
+    snippetName,
+    (snippet, filename = undefined) => {
+      if (filename) {
+        fs.writeFileSync(filename, `${snippet}\n`);
+        console.log('Created snippet file');
+      }
     }
-  });
+  );
 }
 
 function varsToObject(variables) {
   const resultMap = {};
-  variables.forEach(variable => {
+  _.forEach(variables, variable => {
     const splitVar = variable.split('=');
     if (splitVar.length <= 1) {
       console.log(variable);
@@ -79,6 +84,7 @@ program
   .description('Create files for snippet.')
   .option('-v, --vars <vars...>', 'key value variables')
   .action((snippetName = undefined) => {
+    const commandLineParameters = varsToObject(program.vars);
     if (!snippetName) {
       interactive_choose_snippet(snippetName => {
         createFilesForSnippet(snippetName);
@@ -139,7 +145,7 @@ function searchForSnippetInRepos(snippetsRepos, snippetName) {
   return repoPath;
 }
 
-function pushSnippetToFunction(config, snippetName, apply, commandLineParameters) {
+function pushSnippetToFunction(commandLineParameters, config, snippetName, apply) {
   const snippetsRepo = getSnippetsReposFromConfig(config);
   if (!snippetsRepo) {
     console.log(configNotPopulatedMessage);
