@@ -30,7 +30,6 @@
     "fs-walk": "0.0.1",
     "inquirer": "^3.0.6",
     "lodash": "^4.17.4",
-    "minimist": "^1.2.0",
     "path": "^0.12.7"
   },
   "engines": {
@@ -38,6 +37,18 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.7.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-mocha": "^4.9.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "supersoaker": "^1.0.1"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
   }
 }
