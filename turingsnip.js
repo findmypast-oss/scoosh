@@ -33,7 +33,7 @@ program
   .description('Put the requested snippet on the clipboard')
   .action((name = undefined) => {
     if (!name) {
-      interactive_choose_snippet((snippetName) => {
+      interactive_choose_snippet(snippetName => {
         pushSnippetToFunction(config, snippetName, clipboardy.writeSync);
       });
     } else {
@@ -44,7 +44,7 @@ program
 program
   .command('debug <snippetName>')
   .description('Put the requested snippet on the console')
-  .action((name) => {
+  .action(name => {
     pushSnippetToFunction(config, name, console.log);
   });
 
@@ -59,7 +59,7 @@ function createFilesForSnippet(snippetName) {
 
 function varsToObject(variables) {
   const resultMap = {};
-  variables.forEach((variable) => {
+  variables.forEach(variable => {
     const splitVar = variable.split('=');
     if (splitVar.length <= 1) {
       console.log(variable);
@@ -80,7 +80,7 @@ program
   .option('-v, --vars <vars...>', 'key value variables')
   .action((snippetName = undefined) => {
     if (!snippetName) {
-      interactive_choose_snippet((snippetName) => {
+      interactive_choose_snippet(snippetName => {
         createFilesForSnippet(snippetName);
       });
     } else {
@@ -107,7 +107,7 @@ function getAllSnippets() {
     console.log(configNotPopulatedMessage);
   }
   const allSnippets = [];
-  _.find(snippetsRepos, (repo) => {
+  _.find(snippetsRepos, repo => {
     allSnippets.push(...getSnippetNamesFromAllSnippetFolders(repo));
   });
   return allSnippets;
@@ -127,7 +127,7 @@ function interactive_choose_snippet(apply) {
     choices: allSnippets,
     message: 'Please select the snippet that you want.',
   };
-  inquirer.prompt(questions).then((answers) => {
+  inquirer.prompt(questions).then(answers => {
     apply(answers.ChooseSnippet);
   });
 }
@@ -150,7 +150,7 @@ function pushSnippetToFunction(config, snippetName, apply, commandLineParameters
     const snippetConfiguration = readSnippetConfiguration(`${repoPath}/${snippetName}.json`);
 
     createVariableBlock(commandLineParameters, snippetConfiguration, (answers, templateName) => {
-      _.forEach(snippetConfiguration.templateFiles, (templateMetadata) => {
+      _.forEach(snippetConfiguration.templateFiles, templateMetadata => {
         const snippet = createSnippet(`${repoPath}/${templateMetadata.template}`, answers);
 
         if (templateMetadata.filename) {
