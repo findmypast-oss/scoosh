@@ -2,22 +2,21 @@
   "operations": [
     {
       "operation": "create",
-      "template": "graphql-content-resolver.ex",
-      "filename": "<%- _.snakeCase(Name) %>.ex"
+      "templateFile": "graphql-content-resolver.ex",
+      "createFile": "<%- _.snakeCase(Name) %>.ex"
     },
     {
       "operation": "insert",
       "marker": "~~~ MARKER HERE~~~",
-      "markerLineOffset": -1,
-      "template": "graphql-content-resolver.ex",
-      "filename": "<%- GitProjectRoot %>/"
+      "templateFile": "graphql-content-resolver.ex",
+      "insertIntoFile": "<%- GitProjectRoot %>/"
     },
     {
       "operation": "clipboard",
-      "template": "graphql-content-resolver.ex"
+      "templateFile": "graphql-content-resolver.ex"
     },
     {
-      "operation": "makefolder",
+      "operation": "createFolder",
       "path": "<%- GitProjectRoot %>/api/lib"
     }
   ],
