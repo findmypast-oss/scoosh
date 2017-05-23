@@ -6,7 +6,7 @@ const { createSnippet } = require('../create_snippet');
 const clipboardy = require('clipboardy');
 const { templateObjectKeys } = require('./operations');
 
-export function clipboard(operation, variables, loggingFunction = undefined) {
+function clipboard(operation, variables, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, ['templateFile']);
 
   const snippetContents = createSnippet(
@@ -21,3 +21,6 @@ export function clipboard(operation, variables, loggingFunction = undefined) {
       loggingFunction('Template file ${templatedOperation.templateFile} does not exist');
   }
 }
+module.exports = {
+  clipboard,
+};

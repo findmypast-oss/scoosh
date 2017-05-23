@@ -10,7 +10,7 @@ const { templateObjectKeys } = require('./operations');
 
 const fs = require('fs');
 
-export function insert(operation, variables, loggingFunction = undefined) {
+function insert(operation, variables, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, [
     'templateFile',
     'insertIntoFile',
@@ -47,3 +47,7 @@ export function insert(operation, variables, loggingFunction = undefined) {
     }
   }
 }
+
+module.exports = {
+  insert,
+};

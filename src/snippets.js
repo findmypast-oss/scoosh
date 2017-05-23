@@ -19,109 +19,104 @@ For Example :
   "snippetFolders": ["~/snippetFolder", "~/anotherSnippetFolder"]
 }
 `;
-const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.';
-const snipAvailableMessage = 'Clipboard contains complete snippet.';
-const pathAlreadyExistsInConfig = 'Path already exists in config file.';
+const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
+const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
 
 function executeClipboardSnippet(name, config) {
-    if (!name) {
-        interactiveChooseSnippet(getAllSnippets(config), snippetName => {
-            pushSnippetToFunction({}, config, snippetName, clipboardy.writeSync);
-        });
-    } else {
-        pushSnippetToFunction({}, config, name, clipboardy.writeSync);
-    }
+  if (!name) {
+    interactiveChooseSnippet(getAllSnippets(config), snippetName => {
+      pushSnippetToFunction({}, config, snippetName, clipboardy.writeSync);
+    });
+  } else {
+    pushSnippetToFunction({}, config, name, clipboardy.writeSync);
+  }
 }
 function executeDebugSnippet(name, config) {
-    pushSnippetToFunction({}, config, name, console.log);
+  pushSnippetToFunction({}, config, name, process.stdout.write);
 }
 function executeCreateSnippet(name, config, commandLineParameters) {
-    if (!name) {
-        interactiveChooseSnippet(getAllSnippets(config), snippetName => {
-            createFilesForSnippet(snippetName, commandLineParameters, config);
-        });
-    } else {
-        createFilesForSnippet(name, commandLineParameters, config);
-    }
+  if (!name) {
+    interactiveChooseSnippet(getAllSnippets(config), snippetName => {
+      createFilesForSnippet(snippetName, commandLineParameters, config);
+    });
+  } else {
+    createFilesForSnippet(name, commandLineParameters, config);
+  }
 }
 
 function executeAddFolderToConfig(path) {
-    addFolderToConfig(path);
+  addFolderToConfig(path);
 }
 
 function createFilesForSnippet(snippetName, commandLineParameters, config) {
-    pushSnippetToFunction(
-        commandLineParameters,
-        config,
-        snippetName,
-        (snippet, filename = undefined) => {
-            if (filename !== undefined) {
-                fs.writeFileSync(filename, `${snippet}\n`);
-                console.log('Created snippet file');
-            }
-        }
-    );
+  pushSnippetToFunction(
+    commandLineParameters,
+    config,
+    snippetName,
+    (snippet, filename = undefined) => {
+      if (filename !== undefined) {
+        fs.writeFileSync(filename, `${snippet}\n`);
+        process.stdout.write('Created snippet file\n');
+      }
+    }
+  );
 }
 
 function executeListSnippets(config) {
-    const allSnippets = getAllSnippets(config);
+  const allSnippets = getAllSnippets(config);
 
-    console.log(JSON.stringify(allSnippets, undefined, 2));
+  process.stdout.write(JSON.stringify(allSnippets, undefined, 2) + '\n');
 }
 
 function getAllSnippets(config) {
-    const snippetsRepos = getSnippetsReposFromConfig(config);
-    if (!snippetsRepos) {
-        console.log(configNotPopulatedMessage);
-    }
-    const allSnippets = [];
-    _.find(snippetsRepos, repo => {
-        allSnippets.push(...getSnippetNamesFromAllSnippetFolders(repo));
-    });
-    return allSnippets;
+  const snippetsRepos = getSnippetsReposFromConfig(config);
+  if (!snippetsRepos) {
+    process.stdout.write(configNotPopulatedMessage);
+  }
+  const allSnippets = [];
+  _.find(snippetsRepos, repo => {
+    allSnippets.push(...getSnippetNamesFromAllSnippetFolders(repo));
+  });
+  return allSnippets;
 }
 
 function searchForSnippetInRepos(snippetsRepos, snippetName) {
-    let repoPath = _.find(snippetsRepos, repo => getSnippetPath(repo, snippetName));
+  let repoPath = _.find(snippetsRepos, repo => getSnippetPath(repo, snippetName));
 
-    repoPath = getSnippetPath(repoPath, snippetName);
-    return repoPath;
+  repoPath = getSnippetPath(repoPath, snippetName);
+  return repoPath;
 }
 
 function pushSnippetToFunction(commandLineParameters, config, snippetName, apply) {
-    const snippetsRepo = getSnippetsReposFromConfig(config);
-    if (!snippetsRepo) {
-        console.log(configNotPopulatedMessage);
-    }
-    const snippetPath = searchForSnippetInRepos(snippetsRepo, snippetName);
+  const snippetsRepo = getSnippetsReposFromConfig(config);
+  if (!snippetsRepo) {
+    process.stdout.write(configNotPopulatedMessage);
+  }
+  const snippetPath = searchForSnippetInRepos(snippetsRepo, snippetName);
 
-    if (snippetPath) {
-        const snippetConfiguration = readSnippetConfiguration(`${snippetPath}/${snippetName}.json`);
-        createVariableBlock(
-            commandLineParameters,
-            snippetConfiguration,
-            (answers, templateName) => {
-                _.forEach(snippetConfiguration.templateFiles, templateFile => {
-                    const snippet = createSnippet(`${snippetPath}/${templateFile}`, answers);
+  if (snippetPath) {
+    const snippetConfiguration = readSnippetConfiguration(`${snippetPath}/${snippetName}.json`);
+    createVariableBlock(commandLineParameters, snippetConfiguration, answers => {
+      _.forEach(snippetConfiguration.templateFiles, templateFile => {
+        const snippet = createSnippet(`${snippetPath}/${templateFile}`, answers);
 
-                    if (templateFile !== undefined) {
-                        const filename = renderTemplateString(templateFile, answers);
-                        apply(snippet, filename);
-                    } else {
-                        apply(snippet);
-                    }
-                });
-            }
-        );
-    } else {
-        console.log(couldNotFindSnippetMessage);
-    }
+        if (templateFile !== undefined) {
+          const filename = renderTemplateString(templateFile, answers);
+          apply(snippet, filename);
+        } else {
+          apply(snippet);
+        }
+      });
+    });
+  } else {
+    process.stdout.write(couldNotFindSnippetMessage);
+  }
 }
 
 module.exports = {
-    executeClipboardSnippet,
-    executeDebugSnippet,
-    executeCreateSnippet,
-    executeListSnippets,
-    executeAddFolderToConfig,
+  executeClipboardSnippet,
+  executeDebugSnippet,
+  executeCreateSnippet,
+  executeListSnippets,
+  executeAddFolderToConfig,
 };

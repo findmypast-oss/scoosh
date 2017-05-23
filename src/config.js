@@ -4,6 +4,8 @@ const pathLibrary = require('path');
 const expandTilde = require('expand-tilde');
 
 const configFilePath = `${process.env.HOME}/.turingsnip`;
+const pathAlreadyExistsInConfig = 'Path already exists in config file.\n';
+
 function readConfig() {
   let metadataString;
   if (!fs.existsSync(configFilePath)) {
@@ -29,9 +31,9 @@ function addFolderToConfig(rawPath) {
   if (!repoMatch) {
     config.snippetFolders.push(path);
     const jsonConfig = writeConfig(config);
-    console.log(`Config Updated in ~/.turingsnip\n${jsonConfig}`);
+    process.stdout.write(`Config Updated in ~/.turingsnip\n${jsonConfig}\n`);
   } else {
-    console.log(pathAlreadyExistsInConfig);
+    process.stdout.write(pathAlreadyExistsInConfig);
   }
 }
 

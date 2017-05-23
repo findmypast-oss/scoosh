@@ -7,7 +7,7 @@ const { createSnippet } = require('../create_snippet');
 const fs = require('fs');
 const { templateObjectKeys } = require('./operations');
 
-export function create(operation, variables, loggingFunction = undefined) {
+function create(operation, variables, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, ['templateFile', 'createFile']);
 
   const snippetContents = createSnippet(
@@ -27,3 +27,6 @@ export function create(operation, variables, loggingFunction = undefined) {
     }
   }
 }
+module.exports = {
+  create,
+};

@@ -7,7 +7,7 @@ const { templateObjectKeys } = require('./operations');
 
 const fs = require('fs');
 
-export function createFolder(operation, variables, loggingFunction = undefined) {
+function createFolder(operation, variables, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, ['templateFile']);
   templatedOperation.path = renderTemplateString(templatedOperation.path, variables);
   if (!fs.existsSync(templatedOperation.path)) {
@@ -16,3 +16,6 @@ export function createFolder(operation, variables, loggingFunction = undefined) 
     loggingFunction && loggingFunction('Folder ${templatedOperation.path} already exists');
   }
 }
+module.exports = {
+  createFolder,
+};

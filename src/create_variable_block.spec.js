@@ -5,7 +5,7 @@ const {
   createVariableBlock,
   readSnippetConfiguration,
   filterParametersPassedFromCommandLine,
-} = require('../src/create_variable_block');
+} = require('./create_variable_block');
 
 const expect = chai.expect;
 

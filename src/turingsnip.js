@@ -11,7 +11,7 @@ const {
   executeAddFolderToConfig,
 } = require('../src/snippets');
 
-const missingSnippetNameMessage = 'Snippet name is missing';
+const missingSnippetNameMessage = 'Snippet name is missing\n';
 const config = readConfig();
 
 function varsToObject(variables, reportErrors) {
@@ -37,7 +37,7 @@ program
   .action((snippetName = undefined) => {
     snippetName !== undefined
       ? executeDebugSnippet(snippetName, config)
-      : console.log(missingSnippetNameMessage);
+      : process.stdout.write(missingSnippetNameMessage);
   });
 
 program

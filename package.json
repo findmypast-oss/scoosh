@@ -4,7 +4,7 @@
   "description": "A Turing Complete snippets tool for the Command Line",
   "main": "src/turingsnip.js",
   "scripts": {
-    "test": "mocha --reporter nyan --recursive",
+    "test": "mocha src/**/*.spec.js --reporter nyan --recursive",
     "prepublish-to-npm": "supersoaker squirt -r https://registry.npmjs.org",
     "publish-to-npm": "publish"
   },

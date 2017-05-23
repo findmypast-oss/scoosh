@@ -12,16 +12,20 @@ const operationToFunction = {
   insert: insert,
 };
 
-export function processOperations(operations, answers, loggingFunction) {
+function processOperations(operations, answers, loggingFunction) {
   _.forEach(operations, operation => {
     operationToFunction[operation.operation](operation, answers, loggingFunction);
   });
 }
 
-export function templateObjectKeys(objectWithTemplates, listOfKeys, variables) {
+function templateObjectKeys(objectWithTemplates, listOfKeys, variables) {
   let objectToReturn = _.deepClone(objectWithTemplates);
   listOfKeys.forEach(key => {
     objectToReturn[key] = renderTemplateString(objectToReturn[key], variables);
   });
   return objectToReturn;
 }
+module.exports = {
+  processOperations,
+  templateObjectKeys,
+};
