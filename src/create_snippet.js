@@ -4,14 +4,14 @@ const ejs = require('ejs');
 const getRelativePathToGitRoot = require('./find_project_root');
 
 function createSnippet(snippetPath, snippetVariables, loggingFunction = undefined) {
-  let content;
-  if (!fs.existsSync(snippetPath)) {
+  let content = undefined;
+  if (fs.existsSync(snippetPath)) {
     content = fs.readFileSync(snippetPath).toString().trim();
   } else {
     loggingFunction && loggingFunction('Error : Template file ${snippetPath} does not exist.');
     return undefined;
   }
-  return renderTemplateString(content, snippetVariables, loggingFunction);
+  return renderTemplateString(content, snippetVariables);
 }
 
 function renderTemplateString(content, variables) {

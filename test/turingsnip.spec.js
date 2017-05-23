@@ -1,7 +1,8 @@
 const chai = require('chai');
-const { varsToObject } = require('../turingsnip');
-
 const expect = chai.expect;
+const { describe, it } = require('mocha');
+const { varsToObject } = require('../src/turingsnip');
+
 // const _ = require('lodash')
 
 describe('varsToObject', () => {

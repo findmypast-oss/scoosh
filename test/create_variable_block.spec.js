@@ -1,4 +1,5 @@
 const chai = require('chai');
+const { describe, it } = require('mocha');
 
 const {
   createVariableBlock,
@@ -13,7 +14,7 @@ describe('createVariableBlock', () => {
     createVariableBlock(
       {},
       readSnippetConfiguration('testdata/snippets/ecmascript/newcomponent.json'),
-      (answers, templateFile) => {
+      answers => {
         expect(answers).to.exist();
       }
     );
