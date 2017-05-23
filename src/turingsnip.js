@@ -3,30 +3,18 @@
 const _ = require('lodash');
 const program = require('commander');
 
-const { readConfig } = require('./src/config');
+const { readConfig } = require('../src/config');
 const {
-  executeClipboardSnippet,
   executeDebugSnippet,
   executeCreateSnippet,
   executeListSnippets,
   executeAddFolderToConfig,
-} = require('./src/snippets');
+} = require('../src/snippets');
 
-const configNotPopulatedMessage = `
-In order to use turingsnip you'll need to register some tasty snippet folders
-Edit the configuration file in ~/.turingsnip and add the paths
-For Example :
-{
-  "snippetFolders": ["~/snippetFolder", "~/anotherSnippetFolder"]
-}
-`;
-const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.';
-const snipAvailableMessage = 'Clipboard contains complete snippet.';
-const pathAlreadyExistsInConfig = 'Path already exists in config file.';
 const missingSnippetNameMessage = 'Snippet name is missing';
 const config = readConfig();
 
-export function varsToObject(variables, reportErrors) {
+function varsToObject(variables, reportErrors) {
   const resultMap = {};
   _.forEach(variables, variable => {
     const splitVar = variable.split('=');
@@ -44,13 +32,6 @@ export function varsToObject(variables, reportErrors) {
 program.version('1.0.0');
 
 program
-  .command('clip [snippetName]')
-  .description('Put the requested snippet on the clipboard')
-  .action((snippetName = undefined) => {
-    executeClipboardSnippet(snippetName, config);
-  });
-
-program
   .command('debug <snippetName>')
   .description('Put the requested snippet on the console')
   .action((snippetName = undefined) => {
@@ -60,7 +41,7 @@ program
   });
 
 program
-  .command('create [snippetName]')
+  .command('execute [snippetName]')
   .description('Create files for snippet.')
   .option('-v, --vars <vars...>', 'key value variables')
   .action((snippetName = undefined) => {
@@ -83,3 +64,7 @@ program.parse(process.argv);
 if (!process.argv.slice(2).length) {
   program.outputHelp();
 }
+
+module.exports = {
+  varsToObject,
+};

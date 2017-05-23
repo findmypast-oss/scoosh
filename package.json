@@ -2,7 +2,7 @@
   "name": "turingsnip",
   "version": "0.3.3",
   "description": "A Turing Complete snippets tool for the Command Line",
-  "main": "turingsnip.js",
+  "main": "src/turingsnip.js",
   "scripts": {
     "test": "mocha --reporter nyan --recursive",
     "prepublish-to-npm": "supersoaker squirt -r https://registry.npmjs.org",
@@ -36,6 +36,8 @@
     "node": ">=0.10"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.1",
