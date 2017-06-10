@@ -1,7 +1,11 @@
 {
-  "templateFiles": {
-    "template": "newcomponent.js"
-  },
+  "operations": [
+    {
+      "operation": "create",
+      "templateFile": "newcomponent.js",
+      "createFile": "output.js"
+    }
+  ],
   "questions": [
     {
       "name": "ComponentName",

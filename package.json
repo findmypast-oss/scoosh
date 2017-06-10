@@ -2,7 +2,7 @@
   "name": "turingsnip",
   "version": "0.3.3",
   "description": "A Turing Complete snippets tool for the Command Line",
-  "main": "src/turingsnip.js",
+  "main": "turingsnip.js",
   "scripts": {
     "test": "mocha src/**/*.spec.js --reporter nyan --recursive",
     "prepublish-to-npm": "supersoaker squirt -r https://registry.npmjs.org",
@@ -31,6 +31,7 @@
     "fs-walk": "0.0.1",
     "inquirer": "^3.0.6",
     "lodash": "^4.17.4",
+    "mocha": "^3.4.2",
     "path": "^0.12.7"
   },
   "engines": {
