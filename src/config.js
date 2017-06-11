@@ -1,20 +1,22 @@
 const _ = require('lodash');
 const fs = require('fs');
-const pathLibrary = require('path');
+//const pathLibrary = require('path');
 const expandTilde = require('expand-tilde');
+const { findTuringSnipConfig } = require('./find-turingsnip-config');
 
 const configFilePath = `${process.env.HOME}/.turingsnip`;
-const pathAlreadyExistsInConfig = 'Path already exists in config file.\n';
+//const pathAlreadyExistsInConfig = 'Path already exists in config file.\n';
 
 function readConfig() {
   let metadataString;
-  if (!fs.existsSync(configFilePath)) {
-    metadataString = writeConfig({ snippetFolders: [] });
-  } else {
-    metadataString = fs.readFileSync(configFilePath).toString();
-  }
-  const metadata = JSON.parse(metadataString);
 
+  const configPath = findTuringSnipConfig();
+  console.log(configPath);
+
+  metadataString = fs.readFileSync(configPath + '/.turingsnip').toString();
+  if (metadataString == undefined) return undefined;
+  const metadata = JSON.parse(metadataString);
+  console.log(metadata);
   return metadata;
 }
 
