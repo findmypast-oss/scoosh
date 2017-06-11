@@ -1,6 +1,5 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { describe, it } = require('mocha');
 const { varsToObject } = require('../turingsnip');
 
 // const _ = require('lodash')
