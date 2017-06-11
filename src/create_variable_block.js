@@ -19,8 +19,9 @@ function inquireForMissingAnswers(commandLineParameters, metadata, done) {
       var combinedAnswers = Object.assign(answers, commandLineParameters);
       done(combinedAnswers, metadata.operations);
     });
+  } else {
+    done(commandLineParameters, metadata.operations);
   }
-  done(commandLineParameters, metadata.operations);
 }
 
 module.exports = {

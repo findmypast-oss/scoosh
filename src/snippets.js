@@ -37,7 +37,6 @@ function executeCodeGeneration(name, config, commandLineParameters, loggingFunct
 }
 function executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, apply) {
   const pathToSnippet = getSnippetPath(workingFolder, name);
-  console.log(pathToSnippet);
   const generatedCodeMetadata = readGeneratedCodeConfiguration(pathToSnippet + '/' + name + '.json');
 
   inquireForMissingAnswers(commandLineParameters, generatedCodeMetadata, function(answers, operations) {

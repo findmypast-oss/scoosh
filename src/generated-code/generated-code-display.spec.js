@@ -21,6 +21,7 @@ describe('generated code tests', function() {
     expect(result).to.be.a('string');
     expect(result).to.be.equal(
       'File to create: hello.js\n' +
+        '-----------------------------------------------\n' +
         'This is the file we want to write\n' +
         '-----------------------------------------------\n'
     );
@@ -41,9 +42,11 @@ describe('generated code tests', function() {
     expect(result).to.be.a('string');
     expect(result).to.be.equal(
       'File to create: hello.js\n' +
+        '-----------------------------------------------\n' +
         'This is the file we want to write\n' +
         '-----------------------------------------------\n' +
         'File to create: blast.js\n' +
+        '-----------------------------------------------\n' +
         'This is another file we want to write\n' +
         '-----------------------------------------------\n'
     );

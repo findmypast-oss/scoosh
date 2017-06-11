@@ -7,11 +7,7 @@ const { renderSnippetToString } = require('../create_snippet');
 const { templateObjectKeys } = require('./template-object-keys');
 
 function create(operation, variables, folder, loggingFunction = undefined) {
-  console.log(operation);
-  console.log(variables);
-
   const templatedOperation = templateObjectKeys(operation, ['templateFile', 'createFile'], variables);
-  console.log(templatedOperation.templateFile);
   const snippetContents = renderSnippetToString(
     folder + '/' + templatedOperation.templateFile,
     variables,

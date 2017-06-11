@@ -27,7 +27,6 @@ function getSnippetsReposFromConfig(config) {
       : path.normalize(configPath + '/' + tildeFixedRepo);
     return absolutePath;
   });
-  console.log(snippetsRepos);
   if (_.isEmpty(snippetsRepos)) {
     return undefined;
   }

@@ -1,7 +1,9 @@
 function humanReadableGeneratedCode(generatedCode) {
+  console.log(generatedCode);
+  const barString = '\n-----------------------------------------------\n';
   const humanReadable = generatedCode.reduce((returnString, contents) => {
-    const description = `File to create: ${contents.filepath}\n${contents.contents}`;
-    return returnString + description + '\n-----------------------------------------------\n';
+    const description = `File to create: ${contents.filepath}${barString}${contents.contents}`;
+    return returnString + description + barString;
   }, '');
   return humanReadable;
 }

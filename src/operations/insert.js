@@ -12,7 +12,11 @@ function insert(operation, variables, folder, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, ['templateFile', 'insertIntoFile', 'marker'], variables);
   var contents;
 
-  const snippetContents = renderSnippetToString(templatedOperation.templateFile, variables, loggingFunction);
+  const snippetContents = renderSnippetToString(
+    folder + '/' + templatedOperation.templateFile,
+    variables,
+    loggingFunction
+  );
   if (snippetContents) {
     if (doesMarkerExistInFile(templatedOperation.insertIntoFile, templatedOperation.marker)) {
       contents = insertStringIntoStringAtMarker(

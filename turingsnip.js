@@ -6,7 +6,7 @@ const program = require('commander');
 const { readConfig } = require('./src/config');
 const { executeDebugSnippet, executeCreateSnippet, executeListSnippets } = require('./src/snippets');
 
-const missingSnippetNameMessage = 'Snippet name is missing\n';
+//const missingSnippetNameMessage = 'Snippet name is missing\n';
 const config = readConfig();
 program.version('1.0.0');
 
