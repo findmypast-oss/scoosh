@@ -11,21 +11,22 @@ const config = readConfig();
 program.version('1.0.0');
 
 program
-  .command('debug [snippetName]')
+  .command('preview <generatedCodeTemplate>')
   .description('Put the requested snippet on the console')
   .option('-v, --vars <vars...>', 'key value variables')
-  .action((snippetName = undefined) => {
+  .action((generatedCodeTemplate = undefined, vars = undefined) => {
     const commandLineParameters = varsToObject(program.vars);
-    executeDebugSnippet(snippetName, config, commandLineParameters, process.stdout.write);
+    console.log(commandLineParameters);
+    executeDebugSnippet(generatedCodeTemplate, readConfig(), commandLineParameters, process.stdout.write);
   });
 
 program
-  .command('execute <snippetName>')
+  .command('generate <generatedCodeTemplate>')
   .description('Create files for snippet.')
   .option('-v, --vars <vars...>', 'key value variables')
-  .action((snippetName = undefined) => {
+  .action((generatedCodeTemplate = undefined) => {
     const commandLineParameters = varsToObject(program.vars);
-    executeCreateSnippet(snippetName, config, commandLineParameters);
+    executeCreateSnippet(generatedCodeTemplate, readConfig(), commandLineParameters);
   });
 
 program.command('list').description('Creates a list of available snippets').action(() => executeListSnippets(config));
