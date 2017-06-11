@@ -15,13 +15,12 @@ program
   .description('Put the requested snippet on the console')
   .option('-v, --vars <vars...>', 'key value variables')
   .action((snippetName = undefined) => {
-    snippetName !== undefined
-      ? executeDebugSnippet(snippetName, config, varsToObject(program.vars), process.stdout.write)
-      : process.stdout.write(missingSnippetNameMessage);
+    const commandLineParameters = varsToObject(program.vars);
+    executeDebugSnippet(snippetName, config, commandLineParameters, process.stdout.write);
   });
 
 program
-  .command('execute [snippetName]')
+  .command('execute <snippetName>')
   .description('Create files for snippet.')
   .option('-v, --vars <vars...>', 'key value variables')
   .action((snippetName = undefined) => {

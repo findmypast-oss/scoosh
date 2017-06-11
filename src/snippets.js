@@ -1,12 +1,7 @@
 #!/usr/bin/env node
-
 const _ = require('lodash');
-
-const fs = require('fs');
-
 const { interactiveChooseSnippet } = require('./interactive');
 const { inquireForMissingAnswers, readGeneratedCodeConfiguration } = require('./create_variable_block');
-const { renderSnippetToString, renderTemplateString } = require('./create_snippet');
 const { getSnippetPath, getSnippetNamesFromAllSnippetFolders } = require('./get_snippet_path');
 const { getSnippetsReposFromConfig } = require('./config');
 const { processOperations } = require('./operations/operations');
@@ -21,7 +16,7 @@ For Example :
   "snippetFolders": ["~/snippetFolder", "~/anotherSnippetFolder"]
 }
 `;
-const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
+//const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
 //const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
 
 function executeListSnippets(config) {
@@ -34,14 +29,16 @@ function executeCodeGeneration(name, config, commandLineParameters, loggingFunct
   if (!name) {
     const allSnippets = getAllSnippets(config);
     name = interactiveChooseSnippet(allSnippets, function(name) {
-      executeCodeGeneration(name, commandLineParameters, loggingFunction, workingFolder, outputFunction);
+      executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, outputFunction);
     });
   } else {
-    executeCodeGeneration(name, commandLineParameters, loggingFunction, workingFolder, outputFunction);
+    executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, outputFunction);
   }
 }
 function executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, apply) {
-  const generatedCodeMetadata = readGeneratedCodeConfiguration(getSnippetPath(workingFolder, name));
+  const pathToSnippet = getSnippetPath(workingFolder, name);
+  console.log(pathToSnippet);
+  const generatedCodeMetadata = readGeneratedCodeConfiguration(pathToSnippet);
 
   inquireForMissingAnswers(commandLineParameters, generatedCodeMetadata, function(answers, operations) {
     const storedOperations = processOperations(operations, answers, loggingFunction);
@@ -50,7 +47,14 @@ function executeCodeGenerationWithName(name, commandLineParameters, loggingFunct
 }
 
 function executeDebugSnippet(name, config, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
-  executeCodeGeneration(name, config, commandLineParameters, loggingFunction, humanReadableGeneratedCode, workerFolder);
+  executeCodeGeneration(
+    name,
+    config,
+    commandLineParameters,
+    loggingFunction,
+    humanReadableGeneratedCode,
+    workingFolder
+  );
 }
 
 function executeCreateSnippet(name, config, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
