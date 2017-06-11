@@ -5,6 +5,7 @@
   "main": "turingsnip.js",
   "scripts": {
     "test": "mocha --reporter nyan --recursive \"src/**/*.spec.js\"",
+    "watch": "mocha --watch \"src/**/*.js\"",
     "prepublish-to-npm": "supersoaker squirt -r https://registry.npmjs.org",
     "publish-to-npm": "publish"
   },
@@ -47,6 +48,8 @@
     "eslint-plugin-node": "*",
     "eslint-plugin-promise": "*",
     "eslint-plugin-standard": "*",
+    "fs-extra": "^3.0.1",
+    "mkdirp": "^0.5.1",
     "mocha": "*",
     "prettier": "^1.4.4",
     "supersoaker": "*"
