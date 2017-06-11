@@ -8,15 +8,15 @@ const { executeDebugSnippet, executeCreateSnippet, executeListSnippets } = requi
 
 const missingSnippetNameMessage = 'Snippet name is missing\n';
 const config = readConfig();
-
 program.version('1.0.0');
 
 program
-  .command('debug <snippetName>')
+  .command('debug [snippetName]')
   .description('Put the requested snippet on the console')
+  .option('-v, --vars <vars...>', 'key value variables')
   .action((snippetName = undefined) => {
     snippetName !== undefined
-      ? executeDebugSnippet(snippetName, config)
+      ? executeDebugSnippet(snippetName, config, varsToObject(program.vars), process.stdout.write)
       : process.stdout.write(missingSnippetNameMessage);
   });
 

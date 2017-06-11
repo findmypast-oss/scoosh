@@ -12,10 +12,6 @@
       "insertIntoFile": "<%- GitProjectRoot %>/"
     },
     {
-      "operation": "clipboard",
-      "templateFile": "graphql-content-resolver.ex"
-    },
-    {
       "operation": "createFolder",
       "path": "<%- GitProjectRoot %>/api/lib"
     }

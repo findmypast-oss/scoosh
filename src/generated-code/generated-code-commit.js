@@ -9,6 +9,7 @@ function commitGeneratedCode(generatedCode) {
       if (err) throw err;
     });
   });
+  return '';
 }
 
 module.exports = { commitGeneratedCode };

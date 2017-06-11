@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/findmypast/turingsnip#readme",
   "dependencies": {
-    "clipboardy": "*",
     "commander": "*",
     "ejs": "*",
     "expand-tilde": "*",

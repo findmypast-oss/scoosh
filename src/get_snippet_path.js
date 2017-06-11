@@ -23,7 +23,7 @@ function getSnippetPath(startingPath, snippetName) {
   let returnDir = undefined;
 
   if (!fs.existsSync(startingPath)) {
-    process.stdout.write(`Path cannot be found in ~/.turingsnip : ${startingPath}\n`);
+    process.stdout.write(`Path cannot be found in : ${startingPath}\n`);
     return undefined;
   }
   if (!startingPath) {

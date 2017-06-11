@@ -2,7 +2,7 @@ const lodash = require('lodash');
 const fs = require('fs');
 const ejs = require('ejs');
 
-function createSnippet(snippetPath, snippetVariables, loggingFunction = undefined) {
+function renderSnippetToString(snippetPath, snippetVariables, loggingFunction = undefined) {
   let content = undefined;
   if (fs.existsSync(snippetPath)) {
     content = fs.readFileSync(snippetPath).toString().trim();
@@ -20,4 +20,4 @@ function renderTemplateString(content, variables) {
   return ejs.render(content, variables);
 }
 
-module.exports = { createSnippet, renderTemplateString };
+module.exports = { renderSnippetToString, renderTemplateString };

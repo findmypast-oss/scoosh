@@ -1,7 +1,7 @@
 const fs = require('fs');
 var inquirer = require('inquirer');
 
-function readSnippetConfiguration(snippetConfigurationPath) {
+function readGeneratedCodeConfiguration(snippetConfigurationPath) {
   const metadataString = fs.readFileSync(snippetConfigurationPath).toString();
   const metadata = JSON.parse(metadataString);
   return metadata;
@@ -11,17 +11,20 @@ function filterParametersPassedFromCommandLine(commandLineParameters, questions)
   return questions.filter(question => commandLineParameters[question.name] === undefined);
 }
 
-function createVariableBlock(commandLineParameters, metadata, done) {
+function inquireForMissingAnswers(commandLineParameters, metadata, done) {
   const questions = metadata.questions;
   const filteredQuestions = filterParametersPassedFromCommandLine(commandLineParameters, questions);
-  inquirer.prompt(filteredQuestions).then(function(answers) {
-    var combinedAnswers = Object.assign(answers, commandLineParameters);
-    done(combinedAnswers, metadata.operations);
-  });
+  if (filteredQuestions.length > 0) {
+    inquirer.prompt(filteredQuestions).then(function(answers) {
+      var combinedAnswers = Object.assign(answers, commandLineParameters);
+      done(combinedAnswers, metadata.operations);
+    });
+  }
+  done(commandLineParameters, metadata.operations);
 }
 
 module.exports = {
-  createVariableBlock,
-  readSnippetConfiguration,
+  inquireForMissingAnswers,
+  readGeneratedCodeConfiguration,
   filterParametersPassedFromCommandLine,
 };
