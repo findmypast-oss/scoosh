@@ -1,24 +1,20 @@
 const chai = require('chai');
 
 const {
-  createVariableBlock,
-  readSnippetConfiguration,
+  // createVariableBlock,
+  // readSnippetConfiguration,
   filterParametersPassedFromCommandLine,
 } = require('./create_variable_block');
 
 const expect = chai.expect;
 
-describe('createVariableBlock', () => {
-  it('returns a completed variable block', () => {
-    createVariableBlock(
-      {},
-      readSnippetConfiguration('testdata/snippets/ecmascript/newcomponent.json'),
-      answers => {
-        expect(answers).to.exist();
-      }
-    );
-  });
-});
+// describe('createVariableBlock', () => {
+//   it('returns a completed variable block', () => {
+//     createVariableBlock({}, readSnippetConfiguration('testdata/snippets/ecmascript/newcomponent.json'), answers => {
+//       expect(answers).to.exist();
+//     });
+//   });
+// });
 describe('filterParametersPassedFromCommandLine removes already set variables from the inquirer questions', () => {
   it('removes a given command line parameter ', () => {
     const questions = [

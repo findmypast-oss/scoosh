@@ -44,8 +44,7 @@ function insertStringIntoStringAtMarker(fileString, markerString, insertString) 
   const markerIndex = fileString.indexOf(markerString);
   const nextLineIndex = fileString.indexOf('\n', markerIndex) + 1;
 
-  const newString =
-    fileString.slice(0, nextLineIndex) + insertString + fileString.slice(nextLineIndex);
+  const newString = fileString.slice(0, nextLineIndex) + insertString + fileString.slice(nextLineIndex);
   return newString;
 }
 

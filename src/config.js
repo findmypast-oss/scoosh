@@ -24,19 +24,6 @@ function writeConfig(config) {
   return metadataString;
 }
 
-function addFolderToConfig(rawPath) {
-  const path = pathLibrary.resolve(rawPath);
-  const config = readConfig();
-  const repoMatch = _.find(config.snippetFolders, repo => repo === path);
-  if (!repoMatch) {
-    config.snippetFolders.push(path);
-    const jsonConfig = writeConfig(config);
-    process.stdout.write(`Config Updated in ~/.turingsnip\n${jsonConfig}\n`);
-  } else {
-    process.stdout.write(pathAlreadyExistsInConfig);
-  }
-}
-
 function getSnippetsReposFromConfig(config) {
   const snippetsRepos = config.snippetFolders.map(repo => expandTilde(repo));
 
@@ -46,4 +33,8 @@ function getSnippetsReposFromConfig(config) {
   return snippetsRepos;
 }
 
-module.exports = { readConfig, writeConfig, addFolderToConfig, getSnippetsReposFromConfig };
+module.exports = {
+  readConfig,
+  writeConfig,
+  getSnippetsReposFromConfig,
+};

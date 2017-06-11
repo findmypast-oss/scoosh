@@ -9,7 +9,7 @@ const { interactiveChooseSnippet } = require('./interactive');
 const { createVariableBlock, readSnippetConfiguration } = require('./create_variable_block');
 const { createSnippet, renderTemplateString } = require('./create_snippet');
 const { getSnippetPath, getSnippetNamesFromAllSnippetFolders } = require('./get_snippet_path');
-const { addFolderToConfig, getSnippetsReposFromConfig } = require('./config');
+const { getSnippetsReposFromConfig } = require('./config');
 
 const configNotPopulatedMessage = `
 In order to use turingsnip you'll need to register some tasty snippet folders
@@ -20,7 +20,7 @@ For Example :
 }
 `;
 const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
-const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
+//const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
 
 function executeClipboardSnippet(name, config) {
   if (!name) {
@@ -44,10 +44,6 @@ function executeCreateSnippet(name, config, commandLineParameters) {
   }
 }
 
-function executeAddFolderToConfig(path) {
-  addFolderToConfig(path);
-}
-
 function executeListSnippets(config) {
   const allSnippets = getAllSnippets(config);
 
@@ -55,17 +51,12 @@ function executeListSnippets(config) {
 }
 
 function createFilesForSnippet(snippetName, commandLineParameters, config) {
-  pushSnippetToFunction(
-    commandLineParameters,
-    config,
-    snippetName,
-    (snippet, filename = undefined) => {
-      if (filename !== undefined) {
-        fs.writeFileSync(filename, `${snippet}\n`);
-        process.stdout.write('Created snippet file\n');
-      }
+  pushSnippetToFunction(commandLineParameters, config, snippetName, (snippet, filename = undefined) => {
+    if (filename !== undefined) {
+      fs.writeFileSync(filename, `${snippet}\n`);
+      process.stdout.write('Created snippet file\n');
     }
-  );
+  });
 }
 
 function getAllSnippets(config) {
@@ -118,5 +109,4 @@ module.exports = {
   executeDebugSnippet,
   executeCreateSnippet,
   executeListSnippets,
-  executeAddFolderToConfig,
 };

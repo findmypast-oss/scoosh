@@ -4,12 +4,7 @@ const _ = require('lodash');
 const program = require('commander');
 
 const { readConfig } = require('./src/config');
-const {
-  executeDebugSnippet,
-  executeCreateSnippet,
-  executeListSnippets,
-  executeAddFolderToConfig,
-} = require('./src/snippets');
+const { executeDebugSnippet, executeCreateSnippet, executeListSnippets } = require('./src/snippets');
 
 const missingSnippetNameMessage = 'Snippet name is missing\n';
 const config = readConfig();
@@ -34,15 +29,7 @@ program
     executeCreateSnippet(snippetName, config, commandLineParameters);
   });
 
-program
-  .command('list')
-  .description('Creates a list of available snippets')
-  .action(() => executeListSnippets(config));
-
-program
-  .command('addfolder <folderPath>')
-  .description('Adds the path to the list of available snippet folders')
-  .action(folderPath => executeAddFolderToConfig(folderPath));
+program.command('list').description('Creates a list of available snippets').action(() => executeListSnippets(config));
 
 program.parse(process.argv);
 

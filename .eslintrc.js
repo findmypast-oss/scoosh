@@ -15,4 +15,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
   },
+  options: {
+    code: 120,
+  },
 };

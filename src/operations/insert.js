@@ -11,29 +11,16 @@ const { templateObjectKeys } = require('./operations');
 const fs = require('fs');
 
 function insert(operation, variables, loggingFunction = undefined) {
-  const templatedOperation = templateObjectKeys(operation, [
-    'templateFile',
-    'insertIntoFile',
-    'marker',
-  ]);
+  const templatedOperation = templateObjectKeys(operation, ['templateFile', 'insertIntoFile', 'marker']);
 
-  const snippetContents = createSnippet(
-    templatedOperation.templateFile,
-    variables,
-    loggingFunction
-  );
+  const snippetContents = createSnippet(templatedOperation.templateFile, variables, loggingFunction);
   if (snippetContents) {
     if (doesMarkerExistInFile(templatedOperation.insertIntoFile, templatedOperation.marker)) {
-      insertStringIntoFile(
-        templatedOperation.insertIntoFile,
-        templatedOperation.marker,
-        snippetContents
-      );
+      insertStringIntoFile(templatedOperation.insertIntoFile, templatedOperation.marker, snippetContents);
     } else {
       loggingFunction &&
         loggingFunction(
-          'Marker ${templatedOperation.marker} does not exist ' +
-            'in file ${templatedOperation.insertIntoFile}'
+          'Marker ${templatedOperation.marker} does not exist ' + 'in file ${templatedOperation.insertIntoFile}'
         );
     }
   }
@@ -42,8 +29,7 @@ function insert(operation, variables, loggingFunction = undefined) {
     if (!fs.existsSync(templatedOperation.createFile)) {
       fs.writeFileSync(templatedOperation.createFile, snippetContents);
     } else {
-      loggingFunction &&
-        loggingFunction('Error trying to create file ${operation.createFile}, already exists.');
+      loggingFunction && loggingFunction('Error trying to create file ${operation.createFile}, already exists.');
     }
   }
 }

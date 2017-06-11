@@ -1,7 +1,6 @@
 const lodash = require('lodash');
 const fs = require('fs');
 const ejs = require('ejs');
-const getRelativePathToGitRoot = require('./find_project_root');
 
 function createSnippet(snippetPath, snippetVariables, loggingFunction = undefined) {
   let content = undefined;
@@ -17,7 +16,6 @@ function createSnippet(snippetPath, snippetVariables, loggingFunction = undefine
 function renderTemplateString(content, variables) {
   variables._ = lodash; // inject lodash.js
   variables.fs = fs;
-  variables.gitRoot = getRelativePathToGitRoot;
 
   return ejs.render(content, variables);
 }

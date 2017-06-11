@@ -31,7 +31,8 @@
     "fs-walk": "*",
     "inquirer": "*",
     "lodash": "*",
-    "path": "*"
+    "path": "*",
+    "recur-fs": "^2.2.4"
   },
   "engines": {
     "node": "*"

@@ -29,12 +29,10 @@ describe('generated code tests', function() {
     ];
 
     sut.commitGeneratedCode(generatedCode);
-    expect(fs.existsSync(`${testFolder}/anotherfolder/andanother/hello.js`)).to
-      .be.true;
+    expect(fs.existsSync(`${testFolder}/anotherfolder/andanother/hello.js`)).to.be.true;
     expect(fs.existsSync(`${testFolder}/blast.js`)).to.be.true;
     sut.commitGeneratedCode(generatedCode);
-    expect(fs.existsSync(`${testFolder}/anotherfolder/andanother/hello.js`)).to
-      .be.true;
+    expect(fs.existsSync(`${testFolder}/anotherfolder/andanother/hello.js`)).to.be.true;
     expect(fs.existsSync(`${testFolder}/blast.js`)).to.be.true;
   });
 });
