@@ -38,10 +38,10 @@ function executeCodeGeneration(name, config, commandLineParameters, loggingFunct
 function executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, apply) {
   const pathToSnippet = getSnippetPath(workingFolder, name);
   console.log(pathToSnippet);
-  const generatedCodeMetadata = readGeneratedCodeConfiguration(pathToSnippet);
+  const generatedCodeMetadata = readGeneratedCodeConfiguration(pathToSnippet + '/' + name + '.json');
 
   inquireForMissingAnswers(commandLineParameters, generatedCodeMetadata, function(answers, operations) {
-    const storedOperations = processOperations(operations, answers, loggingFunction);
+    const storedOperations = processOperations(operations, answers, pathToSnippet, loggingFunction);
     process.stdout.write(apply(storedOperations));
   });
 }

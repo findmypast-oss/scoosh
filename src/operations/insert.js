@@ -8,8 +8,8 @@ const { renderSnippetToString } = require('../create_snippet');
 const { doesMarkerExistInFile, insertStringIntoStringAtMarker } = require('../insert_string_into_file');
 const { templateObjectKeys } = require('./operations');
 
-function insert(operation, variables, loggingFunction = undefined) {
-  const templatedOperation = templateObjectKeys(operation, ['templateFile', 'insertIntoFile', 'marker']);
+function insert(operation, variables, folder, loggingFunction = undefined) {
+  const templatedOperation = templateObjectKeys(operation, ['templateFile', 'insertIntoFile', 'marker'], variables);
   var contents;
 
   const snippetContents = renderSnippetToString(templatedOperation.templateFile, variables, loggingFunction);
