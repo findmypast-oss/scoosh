@@ -3,7 +3,13 @@
     {
       "operation": "create",
       "templateFile": "newcomponent.js",
-      "createFile": "output.js"
+      "createFile": "modifythis/output.js"
+    },
+    {
+      "operation": "insert",
+      "marker": "/* MARKER HERE */",
+      "templateFile": "weesnippet.js",
+      "insertIntoFile": "modifythis/testfile.js"
     }
   ],
   "questions": [

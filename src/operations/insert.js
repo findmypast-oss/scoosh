@@ -6,24 +6,23 @@
 // }
 const { renderSnippetToString } = require('../create_snippet');
 const { doesMarkerExistInFile, insertStringIntoStringAtMarker } = require('../insert_string_into_file');
-const { templateObjectKeys } = require('./operations');
+const { templateObjectKeys } = require('./template-object-keys');
+const path = require('path');
+const fs = require('fs');
 
-function insert(operation, variables, folder, loggingFunction = undefined) {
+function insert(operation, variables, templateFolder, projectFolder, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, ['templateFile', 'insertIntoFile', 'marker'], variables);
   var contents;
-
+  const fullPathToProject = path.normalize(projectFolder + '/' + templatedOperation.insertIntoFile);
   const snippetContents = renderSnippetToString(
-    folder + '/' + templatedOperation.templateFile,
+    templateFolder + '/' + templatedOperation.templateFile,
     variables,
     loggingFunction
   );
   if (snippetContents) {
-    if (doesMarkerExistInFile(templatedOperation.insertIntoFile, templatedOperation.marker)) {
-      contents = insertStringIntoStringAtMarker(
-        templatedOperation.insertIntoFile,
-        templatedOperation.marker,
-        snippetContents
-      );
+    if (doesMarkerExistInFile(fullPathToProject, templatedOperation.marker)) {
+      const fileToInsertInto = fs.readFileSync(fullPathToProject);
+      contents = insertStringIntoStringAtMarker(fileToInsertInto, templatedOperation.marker, snippetContents);
     } else {
       loggingFunction &&
         loggingFunction(
@@ -32,7 +31,7 @@ function insert(operation, variables, folder, loggingFunction = undefined) {
     }
   }
   return {
-    filepath: templatedOperation.insertIntoFile,
+    filepath: fullPathToProject,
     contents: contents,
   };
 }

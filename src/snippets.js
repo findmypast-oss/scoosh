@@ -40,7 +40,7 @@ function executeCodeGenerationWithName(name, commandLineParameters, loggingFunct
   const generatedCodeMetadata = readGeneratedCodeConfiguration(pathToSnippet + '/' + name + '.json');
 
   inquireForMissingAnswers(commandLineParameters, generatedCodeMetadata, function(answers, operations) {
-    const storedOperations = processOperations(operations, answers, pathToSnippet, loggingFunction);
+    const storedOperations = processOperations(operations, answers, pathToSnippet, workingFolder, loggingFunction);
     process.stdout.write(apply(storedOperations));
   });
 }

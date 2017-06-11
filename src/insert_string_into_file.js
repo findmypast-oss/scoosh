@@ -48,4 +48,9 @@ function insertStringIntoStringAtMarker(fileString, markerString, insertString) 
   return newString;
 }
 
-module.exports = { insertStringIntoFile, insertStringIntoStringAtMarker, getListOfFilesWithMarker };
+module.exports = {
+  doesMarkerExistInFile,
+  insertStringIntoFile,
+  insertStringIntoStringAtMarker,
+  getListOfFilesWithMarker,
+};

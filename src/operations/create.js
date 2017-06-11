@@ -5,11 +5,12 @@
 // }
 const { renderSnippetToString } = require('../create_snippet');
 const { templateObjectKeys } = require('./template-object-keys');
+const path = require('path');
 
-function create(operation, variables, folder, loggingFunction = undefined) {
+function create(operation, variables, templateFolder, projectFolder, loggingFunction = undefined) {
   const templatedOperation = templateObjectKeys(operation, ['templateFile', 'createFile'], variables);
   const snippetContents = renderSnippetToString(
-    folder + '/' + templatedOperation.templateFile,
+    templateFolder + '/' + templatedOperation.templateFile,
     variables,
     loggingFunction
   );
@@ -19,7 +20,7 @@ function create(operation, variables, folder, loggingFunction = undefined) {
   }
 
   return {
-    filepath: templatedOperation.path,
+    filepath: path.normalize(projectFolder + '/' + templatedOperation.createFile),
     contents: snippetContents,
   };
 }
