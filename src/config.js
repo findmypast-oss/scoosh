@@ -32,6 +32,7 @@ function getSnippetsReposFromConfig(config) {
   if (_.isEmpty(snippetsRepos)) {
     return undefined;
   }
+  console.log(snippetsRepos);
   return snippetsRepos;
 }
 

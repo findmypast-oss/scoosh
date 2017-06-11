@@ -51,22 +51,30 @@ function executeListSnippets(config) {
 }
 
 function createFilesForSnippet(snippetName, commandLineParameters, config) {
-  pushSnippetToFunction(commandLineParameters, config, snippetName, (snippet, filename = undefined) => {
-    if (filename !== undefined) {
-      fs.writeFileSync(filename, `${snippet}\n`);
-      process.stdout.write('Created snippet file\n');
+  pushSnippetToFunction(
+    commandLineParameters,
+    config,
+    snippetName,
+    (snippet, filename = undefined) => {
+      if (filename !== undefined) {
+        fs.writeFileSync(filename, `${snippet}\n`);
+        process.stdout.write('Created snippet file\n');
+      }
     }
-  });
+  );
 }
 
 function getAllSnippets(config) {
+  console.log(config);
   const snippetsRepos = getSnippetsReposFromConfig(config);
   if (!snippetsRepos) {
     process.stdout.write(configNotPopulatedMessage);
   }
   const allSnippets = [];
   _.find(snippetsRepos, repo => {
-    allSnippets.push(...getSnippetNamesFromAllSnippetFolders(repo));
+    const snippetNames = getSnippetNamesFromAllSnippetFolders(repo);
+    console.log(snippetNames);
+    allSnippets.push(...snippetNames);
   });
   return allSnippets;
 }
