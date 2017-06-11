@@ -48,6 +48,12 @@ function executeAddFolderToConfig(path) {
   addFolderToConfig(path);
 }
 
+function executeListSnippets(config) {
+  const allSnippets = getAllSnippets(config);
+
+  process.stdout.write(JSON.stringify(allSnippets, undefined, 2) + '\n');
+}
+
 function createFilesForSnippet(snippetName, commandLineParameters, config) {
   pushSnippetToFunction(
     commandLineParameters,
@@ -60,12 +66,6 @@ function createFilesForSnippet(snippetName, commandLineParameters, config) {
       }
     }
   );
-}
-
-function executeListSnippets(config) {
-  const allSnippets = getAllSnippets(config);
-
-  process.stdout.write(JSON.stringify(allSnippets, undefined, 2) + '\n');
 }
 
 function getAllSnippets(config) {

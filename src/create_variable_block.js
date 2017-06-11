@@ -16,7 +16,7 @@ function createVariableBlock(commandLineParameters, metadata, done) {
   const filteredQuestions = filterParametersPassedFromCommandLine(commandLineParameters, questions);
   inquirer.prompt(filteredQuestions).then(function(answers) {
     var combinedAnswers = Object.assign(answers, commandLineParameters);
-    done(combinedAnswers, metadata.templateFiles);
+    done(combinedAnswers, metadata.operations);
   });
 }
 
