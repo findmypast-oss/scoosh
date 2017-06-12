@@ -1,6 +1,6 @@
-# turingsnip
+# scoosh
 
-A linux tool for putting code snippets on your clipboard.
+A code generation tool to make adding code a scoosh
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [turingsnip](#turingsnip)

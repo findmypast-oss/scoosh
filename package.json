@@ -1,7 +1,7 @@
 {
   "name": "scoosh",
   "version": "0.1.0",
-  "description": "A snippets tool to make adding code a scoosh",
+  "description": "A code generation tool to make adding code a scoosh",
   "bin": {
     "scoosh": "./turingsnip.js"
   },
