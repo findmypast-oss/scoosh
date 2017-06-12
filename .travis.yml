@@ -1,15 +1,9 @@
 sudo: required
-
 language: node_js
 node_js:
 - '8'
-
 script:
 - npm test
-
-# after_success:
-# - npm run coveralls
-
 deploy:
   provider: npm
   email: spanners@findmypast.com
@@ -18,10 +12,6 @@ deploy:
   on:
     tags: true
     repo: findmypast-oss/scoosh
-
-# notifications:
-#   slack:
-#     on_success: always
-#     on_failure: always
-#     rooms:
-# secure:
+notifications:
+  slack:
+    secure: n8CNXbGl/wtsacVg9+i/hFOq+zGR7oSIaxPoQb2XhkZOwSSTYw4IPjxsnEAGvXLMeVOHgnD1jEPXw1c5cHpOu3sUW5sDEl9EYXaIWU3EfB6rAQkfgF5eOChXBo+MpVeUkVLy1OCpo4/j5qfnoQb9yxZ4sjVGHrFNLdDpriLU9UQZN8W7IZs6C0jWwqWVXwUa2nXMtBEp1Wm93yQcaehfxF06DHuRaSln5CUBFX2UbVIRgxNDjNbXF9UOmlK5yJlYTXtoOXcelKMo399qzu6YsGVjBQq32nWWKoKWvuK/mqR8kZXMkfOeFvUIbhwkperxYioGOw1Fe/XUzG6BSr6si/7DYda4c5jsQwu6+W/rOTDuF56vBnhl20Es6fEsVT+mVCxopk3OkwfQMg4DZiqKlXhvEyXlzHKMgn0bfDg0PbnFwzIYjcz7jZ8Wt4mhHM2v8AyCHXHeVdftw5uQiXR2jvi7swSUmRNgaLHLC9CF/5+sKJD8AO+Dfdlw+ry7BtixglWs03wNYSFUaluoh23lyxRiK0r8E1pzm/9MJN3egS3iPgOAiMTMl2qk6aGLoDJvinXibI+b+IlEBKirnasrKE8RdW8ufrSjcLJoq2JtXd7DItwdMnasUt8nLl6V67XoOqUrGEbXwvw/NAtFuDD8F5u81d/o80qsTFnFPyGnsis=
