@@ -3,9 +3,9 @@
   "version": "0.4.2",
   "description": "A code generation tool to make adding code a scoosh",
   "bin": {
-    "scoosh": "bin/scoosh.js"
+    "scoosh": "./bin/scoosh.js"
   },
-  "main": "/src/index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "mocha --reporter spec --recursive \"src/**/*.spec.js\" \"bin/**/*.spec.js\"",
     "watch": "mocha --watch \"src/**/*.js\""
