@@ -1,27 +1,25 @@
 {
-  "name": "turingsnip",
-  "version": "0.3.3",
-  "description": "A Turing Complete snippets tool for the Command Line",
+  "name": "scoosh",
+  "version": "0.1.0",
+  "description": "A snippets tool to make adding code a scoosh",
+  "bin": {
+    "scoosh": "./turingsnip.js"
+  },
   "main": "turingsnip.js",
   "scripts": {
     "test": "mocha --reporter nyan --recursive \"src/**/*.spec.js\"",
-    "watch": "mocha --watch \"src/**/*.js\"",
-    "prepublish-to-npm": "supersoaker squirt -r https://registry.npmjs.org",
-    "publish-to-npm": "publish"
-  },
-  "bin": {
-    "turingsnip": "./turingsnip.js"
+    "watch": "mocha --watch \"src/**/*.js\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/findmypast/turingsnip.git"
+    "url": "git+https://github.com/findmypast-oss/scoosh.git"
   },
   "author": "Findmypast",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/findmypast/turingsnip/issues"
+    "url": "https://github.com/findmypast-oss/scoosh/issues"
   },
-  "homepage": "https://github.com/findmypast/turingsnip#readme",
+  "homepage": "https://github.com/findmypast-oss/scoosh#readme",
   "dependencies": {
     "commander": "*",
     "ejs": "*",
@@ -51,8 +49,7 @@
     "fs-extra": "^3.0.1",
     "mkdirp": "^0.5.1",
     "mocha": "*",
-    "prettier": "^1.4.4",
-    "supersoaker": "*"
+    "prettier": "^1.4.4"
   },
   "standard": {
     "env": [
