@@ -1,8 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const { varsToObject } = require('../turingsnip');
-
-// const _ = require('lodash')
+const { varsToObject } = require('./map_vars_to_object');
 
 describe('varsToObject', () => {
   it('converts an array of parameters to an object', () => {

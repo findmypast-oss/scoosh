@@ -3,7 +3,7 @@ const _ = require('lodash');
 const { interactiveChooseSnippet } = require('./interactive');
 const { inquireForMissingAnswers, readGeneratedCodeConfiguration } = require('./create_variable_block');
 const { getSnippetPath, getSnippetNamesFromAllSnippetFolders } = require('./get_snippet_path');
-const { getSnippetsReposFromConfig } = require('./config');
+const { readConfig, getSnippetsReposFromConfig } = require('./config');
 const { processOperations } = require('./operations/operations');
 const { humanReadableGeneratedCode } = require('./generated-code/generated-code-display');
 const { commitGeneratedCode } = require('./generated-code/generated-code-commit');
@@ -19,10 +19,29 @@ For Example :
 //const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
 //const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
 
-function executeListSnippets(config) {
+function executeCreateSnippet(name, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
+  const config = readConfig();
+  executeCodeGeneration(name, config, commandLineParameters, loggingFunction, commitGeneratedCode, workingFolder);
+}
+
+function executeListSnippets() {
+  const config = readConfig();
   const allSnippets = getAllSnippets(config);
 
   process.stdout.write(JSON.stringify(allSnippets, undefined, 2) + '\n');
+}
+
+function executeDebugSnippet(name, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
+  const config = readConfig();
+
+  executeCodeGeneration(
+    name,
+    config,
+    commandLineParameters,
+    loggingFunction,
+    humanReadableGeneratedCode,
+    workingFolder
+  );
 }
 
 function executeCodeGeneration(name, config, commandLineParameters, loggingFunction, outputFunction, workingFolder) {
@@ -43,21 +62,6 @@ function executeCodeGenerationWithName(name, commandLineParameters, loggingFunct
     const storedOperations = processOperations(operations, answers, pathToSnippet, workingFolder, loggingFunction);
     process.stdout.write(apply(storedOperations));
   });
-}
-
-function executeDebugSnippet(name, config, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
-  executeCodeGeneration(
-    name,
-    config,
-    commandLineParameters,
-    loggingFunction,
-    humanReadableGeneratedCode,
-    workingFolder
-  );
-}
-
-function executeCreateSnippet(name, config, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
-  executeCodeGeneration(name, config, commandLineParameters, loggingFunction, commitGeneratedCode, workingFolder);
 }
 
 function getAllSnippets(config) {
