@@ -39,7 +39,7 @@
     "babel-cli": "*",
     "babel-preset-es2015": "*",
     "chai": "*",
-    "eslint": "*",
+    "eslint": "^4.0.0",
     "eslint-config-google": "*",
     "eslint-config-standard": "*",
     "eslint-plugin-import": "*",

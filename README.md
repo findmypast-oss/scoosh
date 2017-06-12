@@ -3,7 +3,7 @@
 A code generation tool to make adding code a scoosh
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [turingsnip](#turingsnip)
+- [scoosh](#scoosh)
 	- [Setup](#setup)
 	- [Usage](#usage)
 	- [Creating snippet templates.](#creating-snippet-templates)
@@ -16,33 +16,31 @@ A code generation tool to make adding code a scoosh
 ## Setup
 
 ```sh
-sudo apt install xsel
 sudo npm install scoosh -g
 ```
 
 ## Usage
 
-1. Clone an existing snippets folder.
-  ```sh
-  git clone git@github.com:findmypast/turingsnip-titan-snippets.git
-  ```
+If you are using Scoosh for the first time then create a .scoosh file in your project root folder and specify the path to your code generation templates.
 
-* If the folder is in our home folder called snippets then run this command.
+.scoosh
 
-  ```sh
-  turingsnip addfolder ~/snippets
-  ```
+```
+{
+  "snippetFolders": ["snippetFolders"]
+}
+```
 
-* Create a multi-file snippet with create, make sure you are in the folder where the files should be created.
-  ```sh
-  turingsnip create component
-  ```
+Now run
 
-* Put a snippet into the clipboard with
+```scoosh preview```
 
-  ```sh
-  turingsnip clip newcomponent
-  ```
+Previews a code generation task with interactive questions.
+
+```scoosh generate```
+
+Generates the files for the chosen template.
+
 
 ## Creating snippet templates.
 
@@ -92,9 +90,13 @@ This file specifies how the template substitutions are fetched from user input. 
 `newcomponent.json`
 ```json
 {
-  "templateFiles": {
-    "template": "newcomponent.js",
-  },
+  "operations": [
+    {
+      "operation": "create",
+      "templateFile": "newcomponent.js",
+      "createFile": "<%- _.kebabCase(ComponentName) %>"
+    }
+  ],
   "questions": [
     {
       "name": "ComponentName",

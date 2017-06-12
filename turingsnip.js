@@ -14,7 +14,7 @@ program
   .command('preview <generatedCodeTemplate>')
   .description('Put the requested snippet on the console')
   .option('-v, --vars <vars...>', 'key value variables')
-  .action((generatedCodeTemplate = undefined, vars = undefined) => {
+  .action((generatedCodeTemplate = undefined) => {
     const commandLineParameters = varsToObject(program.vars);
     console.log(commandLineParameters);
     executeDebugSnippet(generatedCodeTemplate, readConfig(), commandLineParameters, process.stdout.write);
