@@ -1,4 +1,4 @@
-const { executeDebugSnippet, executeCreateSnippet, executeListSnippets } = require('./src/snippets');
+const { executeDebugSnippet, executeCreateSnippet, executeListSnippets } = require('./snippets');
 
 module.exports = {
   preview: executeDebugSnippet,
