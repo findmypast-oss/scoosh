@@ -1,6 +1,6 @@
 {
   "name": "scoosh",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A code generation tool to make adding code a scoosh",
   "bin": {
     "scoosh": "bin/scoosh.js"
