@@ -7,7 +7,7 @@
   },
   "main": "turingsnip.js",
   "scripts": {
-    "test": "mocha --reporter nyan --recursive \"src/**/*.spec.js\"",
+    "test": "mocha --reporter spec --recursive \"src/**/*.spec.js\"",
     "watch": "mocha --watch \"src/**/*.js\""
   },
   "repository": {
