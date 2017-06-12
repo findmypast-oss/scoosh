@@ -1,6 +1,13 @@
 # scoosh
 
 A code generation tool to make adding code a scoosh
+
+## WARNING
+
+This library is in active development and APIs will change, use at your peril
+
+## Contents
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [scoosh](#scoosh)
