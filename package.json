@@ -29,7 +29,8 @@
     "inquirer": "*",
     "lodash": "*",
     "path": "*",
-    "recur-fs": "^2.2.4"
+    "recur-fs": "^2.2.4",
+    "uuid": "^3.0.1"
   },
   "engines": {
     "node": "*"
