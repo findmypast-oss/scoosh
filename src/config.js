@@ -11,11 +11,14 @@ function readConfig() {
   let metadataString;
 
   const configPath = findTuringSnipConfig();
-
-  metadataString = fs.readFileSync(configPath + '/.scoosh').toString();
-  if (metadataString == undefined) return undefined;
-  const metadata = JSON.parse(metadataString);
-  return metadata;
+  if (configPath) {
+    metadataString = fs.readFileSync(configPath + '/.scoosh').toString();
+    if (metadataString == undefined) return undefined;
+    const metadata = JSON.parse(metadataString);
+    return metadata;
+  } else {
+    throw new Error('Could not find a .scoosh configuration file');
+  }
 }
 
 function getSnippetsReposFromConfig(config) {

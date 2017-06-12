@@ -5,9 +5,7 @@ const { mkdirp } = require('mkdirp');
 function commitGeneratedCode(generatedCode) {
   generatedCode.forEach(file => {
     mkdirp.sync(path.dirname(file.filepath));
-    fs.writeFileSync(file.filepath, file.contents, err => {
-      if (err) throw err;
-    });
+    fs.writeFileSync(file.filepath, file.contents);
   });
   return '';
 }
