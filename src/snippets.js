@@ -36,7 +36,12 @@ function executeListSnippets() {
   process.stdout.write(JSON.stringify(allSnippets, undefined, 2) + '\n');
 }
 
-function executeDebugSnippet(name, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
+function executeDebugSnippet(
+  name,
+  commandLineParameters = {},
+  loggingFunction = process.stdout.write,
+  workingFolder = process.cwd()
+) {
   const config = readConfig();
 
   executeCodeGeneration(
