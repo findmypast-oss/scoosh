@@ -5,7 +5,7 @@ function findTuringSnipConfig(relativePath = '') {
   var fullPath = path.isAbsolute(relativePath) ? relativePath : path.normalize(process.cwd() + '/' + relativePath);
   var lastFullPath = undefined;
   while (fullPath != lastFullPath) {
-    if (fs.existsSync(`${fullPath}/.turingsnip`)) {
+    if (fs.existsSync(`${fullPath}/.scoosh`)) {
       return fullPath;
     }
     lastFullPath = fullPath;

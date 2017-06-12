@@ -21,7 +21,7 @@ describe('Check the directory walker finds our config', function() {
 
   it('Create some folders and a file and walk to it', function() {
     mkdirp.sync(`${testFolder}/path1/path2/path3/path4/path5`);
-    fs.writeFileSync(`${testFolder}/path1/path2/.turingsnip`, 'hello');
+    fs.writeFileSync(`${testFolder}/path1/path2/.scoosh`, 'hello');
     const result = sut.findTuringSnipConfig(`${testFolder}/path1/path2/path3/path4/path5`);
     expect(result).to.equal(path.normalize(process.cwd() + '/' + `${testFolder}/path1/path2`));
   });

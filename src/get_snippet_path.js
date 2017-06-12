@@ -4,7 +4,7 @@ const walk = require('fs-walk');
 
 function getSnippetNamesFromAllSnippetFolders(startingPath) {
   if (!fs.existsSync(startingPath)) {
-    process.stdout.write(`Path cannot be found in ~/.turingsnip : ${startingPath}\n`);
+    process.stdout.write(`Path cannot be found: ${startingPath}\n`);
     return undefined;
   }
   if (!startingPath) {

@@ -10,7 +10,7 @@ const { commitGeneratedCode } = require('./generated-code/generated-code-commit'
 
 const configNotPopulatedMessage = `
 In order to use turingsnip you'll need to register some tasty snippet folders
-Edit the configuration file in ~/.turingsnip and add the paths
+Edit the configuration file in ~/.scoosh and add the paths
 For Example :
 {
   "snippetFolders": ["~/snippetFolder", "~/anotherSnippetFolder"]

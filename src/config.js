@@ -12,7 +12,7 @@ function readConfig() {
 
   const configPath = findTuringSnipConfig();
 
-  metadataString = fs.readFileSync(configPath + '/.turingsnip').toString();
+  metadataString = fs.readFileSync(configPath + '/.scoosh').toString();
   if (metadataString == undefined) return undefined;
   const metadata = JSON.parse(metadataString);
   return metadata;
