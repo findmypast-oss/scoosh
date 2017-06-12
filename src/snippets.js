@@ -19,7 +19,12 @@ For Example :
 //const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
 //const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
 
-function executeCreateSnippet(name, commandLineParameters, loggingFunction, workingFolder = process.cwd()) {
+function executeCreateSnippet(
+  name,
+  commandLineParameters = {},
+  loggingFunction = process.stdout.write,
+  workingFolder = process.cwd()
+) {
   const config = readConfig();
   executeCodeGeneration(name, config, commandLineParameters, loggingFunction, commitGeneratedCode, workingFolder);
 }
