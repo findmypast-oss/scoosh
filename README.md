@@ -17,7 +17,7 @@ A code generation tool to make adding code a scoosh
 
 ```sh
 sudo apt install xsel
-sudo npm install turingsnip -g
+sudo npm install scoosh -g
 ```
 
 ## Usage
