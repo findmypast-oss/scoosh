@@ -10,8 +10,7 @@ script:
 deploy:
   provider: npm
   email: spanners@findmypast.com
-  api_key:
-    secure: 2fUrgU/vQnLAX8nJGz4zTKKlApBSAI7aUr8+n9fpePG4pfh6tCCYuF1GdMOHiKUQAs3vFIp2BpVa6PvX9kAf1EokPdUGpXzXPuC/uat4rY9t0Q8NHU5gV+Pk3CNZbczyM8xgI1Dy6BVnT/28eQvsWw2KA+rwVW4Q1vqnOFJqYLcJ4b8zFtMbSgamh2Ab40dekYBZRE69gp6hKrw3zkQVo/xpkstmCDRYzTOEeQbX9cKb5q2q92e7/vbCB3sFLQxW62m35JKGiyEFEN/6iIBwFcWw5Zzze3LRtlFEdob47MEv6Yv2BXnFIyzpV9YZoEOvbhGKFmBbMfyqTZzAHneVag1wOx6qNfV9/AeGgtkr7dIYmwx9UedJ4vEJeDf+wAKkE7+9OYd4WwEXzm/eEZVTTUgH/VEZleURx0vq5ds7Q+l9g9pHy6TVWUHcrCEbgdIEcgfAf7FhR3ztWvPh8zSXHDBHUQHUs1z9z+1237YymLJEkfjVr5C422VW4WYLMJEytrx54EW2POgJLjZfDJK7fA34daH67Jn8F2yjMQdvyOvFKiOrQChLeKzLRS+LT8LO9kvjDxFZhqYEAhzBMXE0u8Rqqan8L7nf71SdofhR2Yj42NYJSuTEa5CkFeTYPSQQ1RQ+XL4kMO3QuJB4J6OZm7Nd8rGsEsMo3VIg5DgNnqI=
+  api_key: $NPM_TOKEN
   on:
     tags: true
     repo: findmypast-oss/scoosh
