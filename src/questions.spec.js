@@ -1,21 +1,21 @@
 const chai = require('chai');
 
 const {
-  // inquireForMissingAnswers,
+  // inquireForMissingParams,
   // readGeneratedCodeConfiguration,
-  filterParametersPassedFromCommandLine,
-} = require('./create_variable_block');
+  filterExistingParameters,
+} = require('./questions');
 
 const expect = chai.expect;
 
-// describe('inquireForMissingAnswers', () => {
+// describe('inquireForMissingParams', () => {
 //   it('returns a completed variable block', () => {
-//     inquireForMissingAnswers({}, readGeneratedCodeConfiguration('testdata/snippets/ecmascript/newcomponent.json'), answers => {
+//     inquireForMissingParams({}, readGeneratedCodeConfiguration('testdata/snippets/ecmascript/newcomponent.json'), answers => {
 //       expect(answers).to.exist();
 //     });
 //   });
 // });
-describe('filterParametersPassedFromCommandLine removes already set variables from the inquirer questions', () => {
+describe('filterExistingParameters removes already set variables from the inquirer questions', () => {
   it('removes a given command line parameter ', () => {
     const questions = [
       {
@@ -25,7 +25,7 @@ describe('filterParametersPassedFromCommandLine removes already set variables fr
         message: 'the component name of the blahdeblah',
       },
     ];
-    const actual = filterParametersPassedFromCommandLine({ ComponentName: 'test' }, questions);
+    const actual = filterExistingParameters({ ComponentName: 'test' }, questions);
     expect(actual).to.be.empty;
   });
   it('does not remove when no command line parameters match', () => {
@@ -37,7 +37,7 @@ describe('filterParametersPassedFromCommandLine removes already set variables fr
         message: 'the component name of the blahdeblah',
       },
     ];
-    const actual = filterParametersPassedFromCommandLine({ Name: 'test' }, questions);
+    const actual = filterExistingParameters({ Name: 'test' }, questions);
     expect(actual).to.deep.equal(questions);
   });
 });

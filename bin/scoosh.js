@@ -13,8 +13,9 @@ program
   .option('-v, --vars <vars...>', 'key value variables')
   .action((generatedCodeTemplate = undefined) => {
     const commandLineParameters = program.vars && varsToObject(program.vars);
-    console.log(commandLineParameters);
-    preview(generatedCodeTemplate, commandLineParameters, process.stdout.write);
+    return preview(generatedCodeTemplate, commandLineParameters).catch(err => {
+      console.error(err.stack);
+    });
   });
 
 program
@@ -23,10 +24,15 @@ program
   .option('-v, --vars <vars...>', 'key value variables')
   .action((generatedCodeTemplate = undefined) => {
     const commandLineParameters = program.vars && varsToObject(program.vars);
-    create(generatedCodeTemplate, commandLineParameters);
+    return create(generatedCodeTemplate, commandLineParameters).catch(err => {
+      console.error(err.stack);
+    });
   });
 
-program.command('list').description('Creates a list of available snippets').action(() => list());
+program
+  .command('list')
+  .description('Creates a list of available snippets')
+  .action(() => list());
 
 program.parse(process.argv);
 
@@ -35,5 +41,5 @@ if (!process.argv.slice(2).length) {
 }
 
 module.exports = {
-  varsToObject,
+  varsToObject
 };

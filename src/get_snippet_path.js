@@ -4,7 +4,7 @@ const walk = require('fs-walk');
 
 function getSnippetNamesFromAllSnippetFolders(startingPath) {
   if (!fs.existsSync(startingPath)) {
-    process.stdout.write(`Path cannot be found: ${startingPath}\n`);
+    console.log(`Path cannot be found: ${startingPath}\n`);
     return undefined;
   }
   if (!startingPath) {
@@ -23,7 +23,7 @@ function getSnippetPath(startingPath, snippetName) {
   let returnDir = undefined;
 
   if (!fs.existsSync(startingPath)) {
-    process.stdout.write(`Path cannot be found in : ${startingPath}\n`);
+    console.log(`Path cannot be found in : ${startingPath}\n`);
     return undefined;
   }
   if (!startingPath) {

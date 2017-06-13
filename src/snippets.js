@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 const _ = require('lodash');
 const { interactiveChooseSnippet } = require('./interactive');
-const { inquireForMissingAnswers, readGeneratedCodeConfiguration } = require('./create_variable_block');
-const { getSnippetPath, getSnippetNamesFromAllSnippetFolders } = require('./get_snippet_path');
+const { inquireForMissingParams } = require('./questions');
+
+const {
+  getSnippetPath,
+  getSnippetNamesFromAllSnippetFolders
+} = require('./get_snippet_path');
+
 const { readConfig, getSnippetsReposFromConfig } = require('./config');
-const { processOperations } = require('./operations/operations');
-const { humanReadableGeneratedCode } = require('./generated-code/generated-code-display');
-const { commitGeneratedCode } = require('./generated-code/generated-code-commit');
+const { processOperations } = require('./operations');
+const { prettify, commit } = require('./generated-code-processing');
 
 const configNotPopulatedMessage = `
 In order to use turingsnip you'll need to register some tasty snippet folders
@@ -19,65 +23,88 @@ For Example :
 //const couldNotFindSnippetMessage = 'Could not find the snippet in your snippet folders.\n';
 //const snipAvailableMessage = 'Clipboard contains complete snippet.\n';
 
-function executeCreateSnippet(
-  name,
-  commandLineParameters = {},
-  loggingFunction = process.stdout.write,
-  workingFolder = process.cwd()
-) {
-  const config = readConfig();
-  executeCodeGeneration(name, config, commandLineParameters, loggingFunction, commitGeneratedCode, workingFolder);
-}
-
 function executeListSnippets() {
   const config = readConfig();
   const allSnippets = getAllSnippets(config);
 
-  process.stdout.write(JSON.stringify(allSnippets, undefined, 2) + '\n');
+  console.log(JSON.stringify(allSnippets, undefined, 2) + '\n');
 }
 
-function executeDebugSnippet(
+async function executeCreateSnippet(
   name,
-  commandLineParameters = {},
-  loggingFunction = process.stdout.write,
+  inputParameters = {},
+  inquirer = require('inquirer'),
+  loggingFunction = console.log,
   workingFolder = process.cwd()
 ) {
-  const config = readConfig();
-
-  executeCodeGeneration(
+  const generatedCode = await executeCodeGeneration(
     name,
-    config,
-    commandLineParameters,
+    inputParameters,
+    inquirer,
     loggingFunction,
-    humanReadableGeneratedCode,
     workingFolder
   );
+  loggingFunction(commit(generatedCode));
 }
 
-function executeCodeGeneration(name, config, commandLineParameters, loggingFunction, outputFunction, workingFolder) {
+async function executeDebugSnippet(
+  name,
+  inputParameters = {},
+  inquirer = require('inquirer'),
+  loggingFunction = console.log,
+  workingFolder = process.cwd()
+) {
+  const generatedCode = await executeCodeGeneration(
+    name,
+    inputParameters,
+    inquirer,
+    loggingFunction,
+    workingFolder
+  );
+  loggingFunction(prettify(generatedCode));
+}
+
+async function executeCodeGeneration(
+  name,
+  inputParameters,
+  inquirer,
+  loggingFunction,
+  workingFolder
+) {
+  const config = readConfig();
   if (!name) {
     const allSnippets = getAllSnippets(config);
-    name = interactiveChooseSnippet(allSnippets, function(name) {
-      executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, outputFunction);
-    });
-  } else {
-    executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, outputFunction);
+    const { chosenSnippet } = await interactiveChooseSnippet(
+      allSnippets,
+      inquirer
+    );
+    name = chosenSnippet;
   }
-}
-function executeCodeGenerationWithName(name, commandLineParameters, loggingFunction, workingFolder, apply) {
-  const pathToSnippet = getSnippetPath(workingFolder, name);
-  const generatedCodeMetadata = readGeneratedCodeConfiguration(pathToSnippet + '/' + name + '.json');
 
-  inquireForMissingAnswers(commandLineParameters, generatedCodeMetadata, function(answers, operations) {
-    const storedOperations = processOperations(operations, answers, pathToSnippet, workingFolder, loggingFunction);
-    process.stdout.write(apply(storedOperations));
-  });
+  const pathToSnippet = getSnippetPath(workingFolder, name);
+  console.log(pathToSnippet);
+  console.log(name);
+  const generatedCodeMetadata = require(pathToSnippet + '/' + name + '.json');
+
+  const templateParameters = await inquireForMissingParams(
+    inputParameters,
+    generatedCodeMetadata,
+    inquirer
+  );
+  const generatedCode = processOperations(
+    generatedCodeMetadata.operations,
+    templateParameters,
+    pathToSnippet,
+    workingFolder,
+    loggingFunction
+  );
+  return generatedCode;
 }
 
 function getAllSnippets(config) {
   const snippetsRepos = getSnippetsReposFromConfig(config);
   if (!snippetsRepos) {
-    process.stdout.write(configNotPopulatedMessage);
+    console.log(configNotPopulatedMessage);
   }
   const allSnippets = [];
   _.find(snippetsRepos, repo => {
@@ -90,5 +117,5 @@ function getAllSnippets(config) {
 module.exports = {
   executeDebugSnippet,
   executeCreateSnippet,
-  executeListSnippets,
+  executeListSnippets
 };

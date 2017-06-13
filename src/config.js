@@ -3,14 +3,13 @@ const fs = require('fs');
 const path = require('path');
 //const pathLibrary = require('path');
 const expandTilde = require('expand-tilde');
-const { findTuringSnipConfig } = require('./find-turingsnip-config');
 
 //const pathAlreadyExistsInConfig = 'Path already exists in config file.\n';
 
 function readConfig() {
   let metadataString;
 
-  const configPath = findTuringSnipConfig();
+  const configPath = findConfig();
   if (configPath) {
     metadataString = fs.readFileSync(configPath + '/.scoosh').toString();
     if (metadataString == undefined) return undefined;
@@ -22,7 +21,7 @@ function readConfig() {
 }
 
 function getSnippetsReposFromConfig(config) {
-  const configPath = findTuringSnipConfig();
+  const configPath = findConfig();
   const snippetsRepos = config.snippetFolders.map(repo => {
     const tildeFixedRepo = expandTilde(repo);
     const absolutePath = path.isAbsolute(tildeFixedRepo)
@@ -36,7 +35,23 @@ function getSnippetsReposFromConfig(config) {
   return snippetsRepos;
 }
 
+function findConfig(relativePath = '') {
+  var fullPath = path.isAbsolute(relativePath)
+    ? relativePath
+    : path.normalize(process.cwd() + '/' + relativePath);
+  var lastFullPath = undefined;
+  while (fullPath != lastFullPath) {
+    if (fs.existsSync(`${fullPath}/.scoosh`)) {
+      return fullPath;
+    }
+    lastFullPath = fullPath;
+    fullPath = path.normalize(fullPath + '/..');
+  }
+  return undefined;
+}
+
 module.exports = {
   readConfig,
-  getSnippetsReposFromConfig,
+  findConfig,
+  getSnippetsReposFromConfig
 };

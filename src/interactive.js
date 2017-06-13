@@ -1,16 +1,12 @@
-const inquirer = require('inquirer');
-
-function interactiveChooseSnippet(allSnippets, apply) {
+function interactiveChooseSnippet(allSnippets, inquirer) {
   const questions = {
-    name: 'ChooseSnippet',
+    name: 'chosenSnippet',
     type: 'list',
     choices: allSnippets,
-    message: 'Please select the snippet that you want.',
+    message: 'Please select the snippet that you want.'
   };
-  inquirer.prompt(questions).then(answers => {
-    apply(answers.ChooseSnippet);
-  });
+  return inquirer.prompt(questions);
 }
 module.exports = {
-  interactiveChooseSnippet,
+  interactiveChooseSnippet
 };

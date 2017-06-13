@@ -4,7 +4,7 @@ const walk = require('fs-walk');
 
 function getListOfFilesWithMarker(startingPath, marker) {
   if (!fs.existsSync(startingPath)) {
-    process.stdout.write(`Path cannot be found: ${startingPath}`);
+    console.log(`Path cannot be found: ${startingPath}`);
     return undefined;
   }
   if (!startingPath) {
